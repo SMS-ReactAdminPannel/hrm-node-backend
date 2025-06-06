@@ -3,7 +3,7 @@ import dotenv from "dotenv"
 
 dotenv.config()
 
-export const url = `mongodb://localhost:27017/HRM`;
+export const url = `mongodb+srv://${process.env.db_user}:${process.env.db_pass}@smsdb.bwmu5qv.mongodb.net/sms?retryWrites=true&w=majority&appName=smsdb/hrms`;
 
 const conenctionOptions = {};
 
