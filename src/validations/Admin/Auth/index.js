@@ -33,3 +33,14 @@ export const AdminLoginValidate = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
 });
+
+
+export const AdminForgotPasswordValidate = Joi.object({
+  email: Joi.string().email().required(),
+});
+
+export const AdminResetPasswordValidate = Joi.object({
+  email: Joi.string().email().required(),
+  token: Joi.string().required(),
+  newPassword: Joi.string().min(6).required()
+});

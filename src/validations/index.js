@@ -1,8 +1,10 @@
 
-import {AdminLoginValidate, AdminSchemavalidate} from "./Admin/Auth/index.js"
+import {AdminForgotPasswordValidate, AdminLoginValidate, AdminResetPasswordValidate, AdminSchemavalidate} from "./Admin/Auth/index.js"
 const Validations = {
 AdminSchemavalidate,
-AdminLoginValidate
+AdminLoginValidate,
+AdminForgotPasswordValidate,
+AdminResetPasswordValidate,
 
 }
 

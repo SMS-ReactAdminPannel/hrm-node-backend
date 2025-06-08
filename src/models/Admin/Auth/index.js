@@ -1,14 +1,15 @@
 import mongoose from "mongoose";
-import validator from "validator";                                          
+import validator from "validator";
 
 // Define Admin schema
 const AdminSchema = new mongoose.Schema({
   id: {
     type: String,
-
   },
   uuid: {
     type: String,
+    required: true,
+    unique: true,
   },
   first_name: {
     type: String,
@@ -37,7 +38,7 @@ const AdminSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator: function (value) {
-        return validator.isMobilePhone(value, 'en-IN');
+        return validator.isMobilePhone(value, "en-IN");
       },
       message: (props) => `${props.value} is not a valid phone number!`,
     },
