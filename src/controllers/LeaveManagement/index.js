@@ -1,8 +1,8 @@
 import { Holidays } from "../../models/LeaveManagement/index.js"
 
-export const NewHoliday = async (req, res) =>{
-    try{
-        const{
+export const NewHoliday = async (req, res) => {
+    try {
+        const {
             holiday_name,
             holiday_date,
             holiday_type,
@@ -24,7 +24,7 @@ export const NewHoliday = async (req, res) =>{
             }
         })
     }
-    catch (err){
+    catch (err) {
         res.status(500).json({ status: "failed", message: err?.message })
     }
 }
@@ -58,7 +58,7 @@ export const updateHoliday = async (req, res) => {
 
         const updatedHoliday = await Holidays.findOneAndUpdate(
             { uuid: uuid },
-            {$set:updates},
+            { $set: updates },
             { new: true }
         );
 
