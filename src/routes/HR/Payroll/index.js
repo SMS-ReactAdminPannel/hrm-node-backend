@@ -1,9 +1,15 @@
 import express from "express"
-import { PayrollCreate, PayrollDelete, PayrollGetOne, PayrollUpdateWithUUID } from "../../../controllers/HR/Payroll/index.js";
+import { addBonus, generatePayroll, getPayrollHistory, getPayrollLogs, getPayslip, getTaxReport, setPayrollStructure, updatePayrollSettings } from "../../../controllers/HR/Payroll/index.js";
 
 const PayrollRouter = express.Router();
-PayrollRouter.post("/create", PayrollCreate)
-PayrollRouter.get("/get/:id",PayrollGetOne)
-PayrollRouter.put("/update/:id",PayrollUpdateWithUUID)
-PayrollRouter.delete("/delete/:id",PayrollDelete)
+PayrollRouter.post("/create-structure", setPayrollStructure)
+PayrollRouter.post("/create-payroll", generatePayroll)
+PayrollRouter.get("/get-slip/:id",getPayslip)
+PayrollRouter.get("/get-history/:id",getPayrollHistory)
+PayrollRouter.get("/get-taxreport/:id",getTaxReport)
+PayrollRouter.get("/get-logs/:id",getPayrollLogs)
+PayrollRouter.put("/update-bonus/:id",addBonus)
+PayrollRouter.put("/update-settings/:id",updatePayrollSettings)
+
+
 export default PayrollRouter

@@ -4,13 +4,11 @@ const PayrollSchema = mongoose.Schema({
     id: {
         type: String
     },
-    employee_name:{
+    employee_id:{
         type:String
     },
-     position_name:{
-        type:String
-    },
-     department_name:{
+    
+     month:{
         type:String
     },
     uuid: {
@@ -19,12 +17,31 @@ const PayrollSchema = mongoose.Schema({
         unique: true,
         default: uuid
       },
-    total_employee:{
-        type:String
+    year:{
+        type:Number
     },
-   salary:{
-        type:String
+   grosssalary:{
+        type:Number
    },
+   netsalary:{
+        type:Number
+   },
+   deduction:{
+       pf: Number,
+    tax:Number,
+    others:Number
+   },
+  bonuses:[
+    {
+    amount:Number,
+    reason:String,
+    date:{type:Date,default:Date.now}
+    }
+  ],
+  createAt:{
+    type:Date,
+    default:Date.now
+},
     
      is_active: {
         type: Boolean,
@@ -38,6 +55,7 @@ const PayrollSchema = mongoose.Schema({
     
     },{timestamps: true});
     export const PayrollModel = mongoose.model("Payrollmodel",PayrollSchema)
+   
         
 
 
