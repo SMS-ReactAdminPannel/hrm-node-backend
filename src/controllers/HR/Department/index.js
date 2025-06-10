@@ -1,4 +1,4 @@
-import { DepartmentModel } from "../../models/HR/Department/index.js";
+import { DepartmentModel } from "../../../models/HR/Department/index.js";
 
 export const DepartmentGetOne = async (req, res) =>{
     try{

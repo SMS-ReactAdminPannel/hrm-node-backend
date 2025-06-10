@@ -1,5 +1,6 @@
 import express from "express"
-import { DepartmentDelete, DepartmentGetAll, DepartmentGetOne } from "../../../controllers/Department/index.js";
+import { DepartmentDelete, DepartmentGetAll, DepartmentGetOne } from "../../../controllers/HR/Department/index.js";
+
 const DepartmentRouter = express.Router();
 
 DepartmentRouter.get("/get/:id",DepartmentGetOne)
