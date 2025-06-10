@@ -1,0 +1,125 @@
+import { TimeEntryModel, TimesheetModel } from "../../../models/HR/TimeSheet/index.js";
+
+// Clock In
+export const clockIn = async (req, res) => {
+  try {
+    const { employee_id, location, notes } = req.body;
+
+    const existingEntry = await TimeEntryModel.findOne({
+      employee_id,
+      clockOut: { $exists: false }
+    });
+
+    if (existingEntry) {
+      return res.status(400).json({ error: 'You have an open time entry' });
+    }
+
+    const timeEntry = new TimeEntryModel({
+      employee_id,
+      date: new Date(),
+      clockIn: new Date(),
+      location,
+      notes,
+      status: 'draft'
+    });
+
+    await timeEntry.save();
+    res.status(201).json(timeEntry);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+//Clock Out
+export const clockOut = async (req, res) => {
+  try {
+    const { employee_id, notes } = req.body;
+
+    const timeEntry = await TimeEntryModel.findOne({
+      employee_id,
+      clockOut: { $exists: false }
+    }).sort({ clockIn: -1 });
+
+    if (!timeEntry) {
+      return res.status(404).json({ error: 'No open time entry found' });
+    }
+
+    timeEntry.clockOut = new Date();
+    timeEntry.notes = notes || timeEntry.notes;
+
+    const msWorked = timeEntry.clockOut - timeEntry.clockIn;
+    timeEntry.totalHours = msWorked / (1000 * 60 * 60); // Convert ms to hours
+    timeEntry.regularHours = Math.min(timeEntry.totalHours, 8);
+    timeEntry.overtimeHours = Math.max(timeEntry.totalHours - 8, 0);
+
+    await timeEntry.save();
+    res.json(timeEntry);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+//Submit Timesheet
+export const submitTimesheet = async (req, res) => {
+  try {
+    const { employee_id, startDate, endDate } = req.body;
+
+    const entries = await TimeEntryModel.find({
+      employee_id,
+      date: {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate)
+      }
+    });
+
+    if (entries.length === 0) {
+      return res.status(400).json({ error: 'No time entries found for this period' });
+    }
+
+    const totalHours = entries.reduce((sum, entry) => sum + (entry.totalHours || 0), 0);
+
+    const timesheet = new TimesheetModel({
+      employee_id,
+      startDate,
+      endDate,
+      entries: entries.map(e => e._id),
+      totalHours,
+      status: 'submitted'
+    });
+
+    await timesheet.save();
+    res.status(201).json(timesheet);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Approve Timesheet
+export const approveTimesheet = async (req, res) => {
+  try {
+    const { timesheetId } = req.params;
+    const { approverId, comment } = req.body;
+
+    const timesheet = await TimesheetModel.findById(timesheetId);
+    if (!timesheet) {
+      return res.status(404).json({ error: 'Timesheet not found' });
+    }
+
+    timesheet.status = 'approved';
+    timesheet.approvedBy = approverId;
+    timesheet.approvalDate = new Date();
+    timesheet.rejectionReason = comment || '';
+
+    await timesheet.save();
+
+    // Update entries
+    await TimeEntryModel.updateMany(
+      { _id: { $in: timesheet.entries } },
+      { $set: { status: 'approved' } }
+    );
+
+    res.json(timesheet);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

@@ -1,0 +1,41 @@
+import mongoose from "mongoose"; 
+
+
+// Time Entry Schema
+const TimeEntrySchema = new mongoose.Schema({
+  employee_id: { type: mongoose.Schema.Types.ObjectId, ref: 'employee', required: true },
+  date: { type: Date, required: true },
+  clockIn: { type: Date },
+  clockOut: { type: Date },
+  breakStart: { type: Date },
+  breakEnd: { type: Date },
+  totalHours: { type: Number },
+  regularHours: { type: Number },
+  overtimeHours: { type: Number },
+  status: {
+    type: String,
+    enum: ['draft', 'submitted', 'approved', 'rejected'],
+    default: 'draft'
+  }
+}, { timestamps: true });
+
+export const TimeEntryModel = mongoose.model("TimeEntrymodel",TimeEntrySchema)
+
+// Timesheet Schema
+const TimesheetSchema = new mongoose.Schema({
+  employee_id: { type: mongoose.Schema.Types.ObjectId, ref: 'employee', required: true },
+  startDate: { type: Date, required: true },
+  endDate: { type: Date, required: true },
+  entries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TimeEntry' }],
+  totalHours: { type: Number },
+  status: {
+    type: String,
+    enum: ['draft', 'submitted', 'approved', 'rejected'],
+    default: 'draft'
+  },
+  approvedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'employee' },
+  approvalDate: { type: Date },
+  rejectionReason: { type: String }
+}, { timestamps: true });
+
+export const TimesheetModel = mongoose.model("TimeSheetmodel",TimesheetSchema)
