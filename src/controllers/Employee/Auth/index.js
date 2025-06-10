@@ -1,7 +1,7 @@
-import { employeeUser } from "../../models/Employee/index.js";
+import { employeeUser } from "../../../models/Employee/index.js";
 import bcrypt from "bcryptjs";
-import { generateOtp } from "../../utils/helpers/helpers.js";
-import { Otps } from "../../models/index.js";
+import { generateOtp } from "../../../utils/helpers/helpers.js";
+import { Otps } from "../../../models/index.js";
 
 export const signUp = async (req, res) => {
     try {

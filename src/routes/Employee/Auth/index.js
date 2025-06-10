@@ -1,5 +1,5 @@
 import express from "express"
-import { forgotPassword, getProfile, Login, logout, resendOtp, resetPassword, signUp, updateProfile, validateOTP } from "../../../controllers/Employee/index.js";
+import { forgotPassword, getProfile, Login, logout, resendOtp, resetPassword, signUp, updateProfile, validateOTP } from "../../../controllers/Employee/Auth/index.js";
 
 const authEmployeeRoute = express.Router();
 

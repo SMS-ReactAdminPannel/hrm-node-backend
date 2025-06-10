@@ -1,9 +1,7 @@
 import mongoose from "mongoose"
-import { generateUUID } from "../../utils/helpers/helpers.js";
-const Schema = mongoose.Schema
 import validator from "validator"
 
-const employeeSchema = new Schema({
+const employeeSchema = new mongoose.Schema({
     id:{
         type:Number,
     },
