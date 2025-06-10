@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import { generateUUID } from "../../utils/helpers/helpers.js";
+import { v4 as uuid } from "uuid"
 const Schema = mongoose.Schema
 import validator from "validator"
 
@@ -9,7 +9,7 @@ const employeeSchema = new Schema({
     },
     uuid:{
         type:Number,
-        // default: generateUUID
+        default: uuid,
     },
     first_name:{
         type:String,
