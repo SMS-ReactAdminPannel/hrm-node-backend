@@ -3,9 +3,12 @@ import dotenv from "dotenv"
 
 dotenv.config()
 
-export const url = `mongodb+srv://${process.env.db_user}:${process.env.db_pass}@smsdb.bwmu5qv.mongodb.net/sms?retryWrites=true&w=majority&appName=smsdb/hrms`;
+export const url = `mongodb+srv://${process.env.db_user}:${process.env.db_pass}@smsdb.bwmu5qv.mongodb.net/hrms?retryWrites=true&w=majority&appName=smsdb/`;
 
-const conenctionOptions = {};
+const conenctionOptions = {
+  useNewUrlParser: true,
+      useUnifiedTopology: true,
+};
 
 mongoose
   .connect(url, conenctionOptions)
