@@ -263,3 +263,113 @@ export const updateProfile = async (req, res) => {
         });
     }
 };
+
+ export const EmployeeGetAll = async (req, res) => {
+        try {
+            const Employee = await employeeUser.find({ is_active: true });
+    
+            return res.status(200).send({
+                success: true,
+                count: Employee.length,
+                data: Employee,
+            });
+        } catch (error) {
+            return res.status(500).send({
+                success: false,
+                message: "Something went wrong",
+                error: error.message,
+            });
+        }
+    };
+
+    export const EmployeeDelete = async (req,res) => {
+        try {
+            const { id } = req.params;
+    
+            const deletedPart = await employeeUser.findOneAndDelete(
+                { _id:id, },
+                { is_deleted: true },
+                { new: true }
+            );
+    
+            if (!deletedPart) {
+                return res.status(404).send({
+                    success: false,
+                    message: "Employee not found or already deleted",
+                });
+            }
+    
+            return res.status(200).send({ 
+                success: true,
+                message: "Employee deleted successfully",
+            });
+        } catch (error) {
+            return res.status(500).send({
+                success: false,
+                message: "Something went wrong",
+                error: error.message,
+            });
+        }
+    };
+
+
+    
+    export const EmployeeCreate = async (req, res)=>{
+        try{
+            const value=req.body;
+            
+            const newEmployee = new employeeUser({
+                ...value,
+               
+            });
+            await newEmployee.save();
+             return res.status(201).send({
+                success: true,
+                message: "New Employee Created Successfully",
+                data: newEmployee,
+            });
+            } catch (error) {
+            return res.status(500).send({
+                success: false,
+                message: "Something went wrong",
+                error: error.message,
+            });
+        }
+    };
+    
+
+     export const EmployeeUpdateWithUUID = async (req,res) => {
+            try {
+                const { id } = req.params;
+                const value = req.body;
+                
+                const updatedPart = await employeeUser.findOneAndUpdate(
+                    { _id:id, is_active: true },
+                    {
+                        ...value,
+                        
+                    },
+                    { new: true }
+                );
+        
+                if (!updatedPart) {
+                    return res.status(404).send({
+                        success: false,
+                        message: "Employee not found or has been deleted",
+                    });
+                }
+        
+                return res.status(200).send({
+                    success: true,
+                    message: "Employee updated successfully",
+                    data: updatedPart,
+                });
+            } catch (error) {
+                return res.status(500).send({
+                    success: false,
+                    message: "Something went wrong",
+                    error: error.message,
+                });
+            }
+        };
+    
