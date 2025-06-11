@@ -59,8 +59,8 @@ export const clockOut = async (req, res) => {
   }
 };
 
-//Submit Timesheet
-export const submitTimesheet = async (req, res) => {
+
+export const getsubmitTimesheet = async (req, res) => {
   try {
     const { employee_id, startDate, endDate } = req.body;
 
@@ -119,6 +119,22 @@ export const approveTimesheet = async (req, res) => {
     );
 
     res.json(timesheet);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export const getemployeetimesheet = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id,"timesheet")
+    const timesheet = await TimeEntryModel.find({employee_id:id})
+console.log(timesheet,"tm")
+    if (!timesheet) {
+      return res.status(404).json({ error: "Timesheet not found" });
+    }
+
+    res.status(200).json({ data: timesheet });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 // Time Entry Schema
 const TimeEntrySchema = new mongoose.Schema({
-  employee_id: { type: mongoose.Schema.Types.ObjectId, ref: 'employee', required: true },
+  employee_id: { type: mongoose.Schema.Types.ObjectId, ref: 'employeeUser', required: true },
   date: { type: Date, required: true },
   clockIn: { type: Date },
   clockOut: { type: Date },
@@ -23,7 +23,7 @@ export const TimeEntryModel = mongoose.model("TimeEntrymodel",TimeEntrySchema)
 
 // Timesheet Schema
 const TimesheetSchema = new mongoose.Schema({
-  employee_id: { type: mongoose.Schema.Types.ObjectId, ref: 'employee', required: true },
+  employee_id: { type: mongoose.Schema.Types.ObjectId, ref: 'employeeUser', required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   entries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TimeEntry' }],
@@ -33,7 +33,7 @@ const TimesheetSchema = new mongoose.Schema({
     enum: ['draft', 'submitted', 'approved', 'rejected'],
     default: 'draft'
   },
-  approvedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'employee' },
+  approvedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'employeeUser' },
   approvalDate: { type: Date },
   rejectionReason: { type: String }
 }, { timestamps: true });
