@@ -5,6 +5,8 @@ import db from "./src/config/db.js"
 import routes from './src/routes/index.js';
 import assetRoutes from './src/routes/Assets/assetRoutes.js';
 import assetCategoryRoute from './src/routes/AssetCategoryRoutes.js';
+import EmployeeAuthRoutes from './src/routes/Employee/index.js';
+import DepartmentRouter from './src/routes/Deparment/departmentRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -21,6 +23,8 @@ app.use("/api", routes)
 
  app.use("/api/assets", assetRoutes);
  app.use("/asset-categories", assetCategoryRoute);
+ app.use("/api/employee", EmployeeAuthRoutes);
+ app.use("/api/departments", DepartmentRouter);
 
 app.listen(process.env.PORT,()=> {
     console.log(`Server running on port http://localhost:${process.env.PORT}`)

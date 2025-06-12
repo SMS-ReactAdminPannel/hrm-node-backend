@@ -1,15 +1,15 @@
 import mongoose from "mongoose"
-import { generateUUID } from "../../utils/helpers/helpers.js";
+import { v4 as uuid } from "uuid"
 const Schema = mongoose.Schema
 import validator from "validator"
 
-const employeeSchema = new Schema({
+const employeeSchema = new mongoose.Schema({
     id:{
         type:Number,
     },
     uuid:{
         type:Number,
-        // default: generateUUID
+        default: uuid,
     },
     first_name:{
         type:String,
@@ -77,7 +77,12 @@ const employeeSchema = new Schema({
     first_time_login:{
         type:Boolean,
         default:false
-    }
+    },
+    department: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Department",
+        required: true
+      },
 },{timestamps:true,});
 
 

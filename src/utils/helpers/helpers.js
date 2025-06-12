@@ -23,7 +23,7 @@ export const generateRandomSecretKey = () => {
 }
 
 export const generateToken = (user) => {
-    const token = jwt.sign({ email: user.email, role: user.role, uuid: user.uuid, user_type: "platform" }, process.env.secret_key, { expiresIn: "24h" }, { algorithm: 'RS256' })
+    const token = jwt.sign({ email: user.email, role: user.role, uuid: user.uuid, user_type: "admin" }, process.env.secret_key, { expiresIn: "24h" }, { algorithm: 'RS256' })
     return token
 }
 
