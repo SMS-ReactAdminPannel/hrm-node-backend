@@ -1,6 +1,5 @@
 import express from "express"
 import AdminRouter from "./Admin/index.js";
-import HrRouter from "../routes/HR/index.js";
 import EmployeeRouter from "./Employee/index.js";
 import GuestRouter from "./Guest/index.js";
 import AnnouncementRouter from "./HR/Announcement/index.js";
@@ -11,6 +10,7 @@ import AssetCategoryRouter from "./HR/AssetCategory/index.js";
 import TimeSheetrouter from "./HR/TimeSheet/index.js";
 import GrievanceRouter from "./HR/Grievance/index.js";
 import CandidatesRouter from "./HR/Candidates/index.js";
+import HrRouter from "./HR/Index.js";
 
 const routes = express.Router();
 
