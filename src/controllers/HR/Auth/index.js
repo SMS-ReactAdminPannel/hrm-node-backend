@@ -15,7 +15,7 @@ export const HrSignup = async (req, res) => {
       first_name,
       last_name,
       phone_number,
-    } = Validations.HrSchemavalidate(req.body);
+    } = Validations.Hrschemavalidate(req.body);
 
     const hashed = await bcrypt.hash(password, 10);
 

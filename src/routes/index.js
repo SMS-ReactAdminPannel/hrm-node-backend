@@ -5,12 +5,12 @@ import GuestRouter from "./Guest/index.js";
 import AnnouncementRouter from "./HR/Announcement/index.js";
 import DepartmentRouter from "./HR/Department/index.js";
 import PayrollRouter from "./HR/Payroll/index.js";
-import LeaveRouter from "./HR/Leave/index.js";
 import AssetCategoryRouter from "./HR/AssetCategory/index.js";
 import TimeSheetrouter from "./HR/TimeSheet/index.js";
 import GrievanceRouter from "./HR/Grievance/index.js";
 import CandidatesRouter from "./HR/Candidates/index.js";
 import HrRouter from "./HR/Index.js";
+import LeaveRouter from "./HR/LeaveManagement/index.js";
 
 const routes = express.Router();
 

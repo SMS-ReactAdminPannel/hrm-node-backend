@@ -1,4 +1,4 @@
-import { LeaveModel } from "../../../models/HR/Leve/index.js";
+import { LeaveModel } from "../../../models/HR/Leave/index.js";
 
 export const LeaveCreate = async (req, res)=>{
     try{
