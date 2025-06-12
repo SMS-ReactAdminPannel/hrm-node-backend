@@ -1,11 +1,12 @@
 import express from 'express';
-import {createNotification, getAllNotifications, getReadNotifications, getUnreadNotifications} from '../../../controllers/Notification/Auth/index.js';
+import { createNotification, getUserNotifications, markAsRead } from '../../../controllers/Notification/index.js';
 
-const notificationAuthRoute = express.Router();
 
-notificationAuthRoute.post('/createNotification', createNotification);
-notificationAuthRoute.get('/getAllNotification', getAllNotifications);
-notificationAuthRoute.get('/getReadNotification', getReadNotifications);
-notificationAuthRoute.get('/getUnreadNotification', getUnreadNotifications);
 
-export default notificationAuthRoute;
+const notificationRouter = express.Router();
+
+notificationRouter.post('/createNotification', createNotification);
+notificationRouter.get('/getNotification/:userId', getUserNotifications);
+notificationRouter.patch('/markMessageRead/:id', markAsRead);
+
+export default notificationRouter;
