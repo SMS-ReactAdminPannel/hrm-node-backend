@@ -6,6 +6,7 @@ import AnnouncementRouter from "./Announcement/index.js";
 import PayrollRouter from "./Payroll/index.js";
 import LeaveRouter from "./Leave/index.js";
 import GrievanceRouter from "./Grievance/index.js";
+import CandidatesRouter from "./Candidates/index.js";
 
 
 const HrRouter = express.Router();
@@ -17,6 +18,7 @@ HrRouter.use("/department", DepartmentRouter);
 HrRouter.use("/payroll", PayrollRouter);
 HrRouter.use("/leave", LeaveRouter);
 HrRouter.use("/grievance",GrievanceRouter)
+HrRouter.use("/candidates",CandidatesRouter)
 
 
 

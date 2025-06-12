@@ -43,7 +43,7 @@ export const updateGrievanceStatus = async (req, res) => {
   }
 };
 
-// Delete a grievance
+
 export const deleteGrievance = async (req, res) => {
   try {
     const deleted = await GrievanceModel.findByIdAndDelete(req.params.id);
