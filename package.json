@@ -17,7 +17,6 @@
     "url": "https://github.com/SMS-ReactAdminPannel/hrm-node-backend/issues"
   },
   "homepage": "https://github.com/SMS-ReactAdminPannel/hrm-node-backend#readme",
-  "description": "",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
@@ -30,9 +29,12 @@
     "mongoose": "^8.15.1",
     "nodemailer": "^7.0.3",
     "otp-generator": "^4.0.1",
+    "socket.io": "^4.8.1",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "keywords": [],
+  "description": ""
 }
