@@ -3,6 +3,7 @@ import { employeeValidationSchema } from "./Employee/index.js";
 import { Guestschemavalidate } from "./Guest/Auth/index.js";
 import { HrSchemavalidate } from "./HR/auth/index.js";
 import { LeaveValidateSchema } from "./LeaveManagement/index.js";
+import { notificationValidationSchema } from "./Notification/Auth/index.js";
 
 const Validations = {
     employeeValidationSchema: employeeValidationSchema,
@@ -12,7 +13,9 @@ const Validations = {
     AdminForgotPasswordValidate: AdminForgotPasswordValidate,
     AdminResetPasswordValidate: AdminResetPasswordValidate,
     LeaveValidateSchema:LeaveValidateSchema,
-    Hrschemavalidate: HrSchemavalidate
+    Hrschemavalidate: HrSchemavalidate,
+    NotificationValidate: notificationValidationSchema
+
 }
 
 export default Validations;
