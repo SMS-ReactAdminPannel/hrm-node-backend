@@ -12,6 +12,7 @@ import LeaveTypeRouter from "./LeaveTypeManagement/index.js";
 import ShiftRouter from "./Shift/index.js";
 import LeaveRouter from "./LeaveManagement/index.js";
 
+import DeductionRouter from "./Deduction/index.js";
 
 const HrRouter = express.Router();
 HrRouter.use("/assetcategory",AssetCategoryRouter)
@@ -27,5 +28,5 @@ HrRouter.use("/grievance",GrievanceRouter)
 HrRouter.use("/candidates",CandidatesRouter)
 HrRouter.use("/leave-type", LeaveTypeRouter)
 HrRouter.use("/shift",ShiftRouter)
-
+HrRouter.use("/deductions",DeductionRouter)
 export default HrRouter;
