@@ -5,12 +5,11 @@ import db from "./src/config/db.js"
 import routes from './src/routes/index.js';
 import { createServer } from 'http';
 import { initSocket } from './src/services/socketService.js';
+import { generateToken } from './src/utils/helpers/helpers.js';
 
 dotenv.config();
 
 const app = express();
-const server = createServer(app);
-initSocket(server);
 
 app.use(cors());
 app.use(cors({origin:["http://localhost:5173","http://localhost:5174"]}))
