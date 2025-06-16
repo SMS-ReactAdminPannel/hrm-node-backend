@@ -1,19 +1,19 @@
+// db.js or dbConnect.js
 import mongoose from "mongoose";
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
 
-export const url = `mongodb+srv://${process.env.db_user}:${process.env.db_pass}@smsdb.bwmu5qv.mongodb.net/hrms?retryWrites=true&w=majority&appName=smsdb/hrms`;
+const url = `mongodb+srv://${process.env.db_user}:${process.env.db_pass}@smsdb.bwmu5qv.mongodb.net/hrms?retryWrites=true&w=majority&appName=smsdb/hrms`;
 
-const conenctionOptions = {};
-
-mongoose
-  .connect(url, conenctionOptions)
-  .then(() => {
+const ConnectDB = async () => {
+  try {
+    await mongoose.connect(url);
     console.log("MongoDB Connected");
-  })
-  .catch((err) => {
-    console.error("MongoDB Connection Error: ", err);
-  });
+  } catch (err) {
+    console.error("MongoDB Connection Error:", err);
+    process.exit(1); // Exit with failure
+  }
+};
 
-export default mongoose.connection;
+export default ConnectDB;

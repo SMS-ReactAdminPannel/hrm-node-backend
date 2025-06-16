@@ -19,13 +19,23 @@ export const getAssets = async (req, res) => {
 };
 
 export const updateAsset = async (req, res) => {
-  try {
-    const asset = await Asset.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(asset);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+    try {
+      const asset = await Asset.findByIdAndUpdate(req.params.id, req.body, {
+        new: true, // ✅ Return the updated document
+        runValidators: true, // ✅ Optional: ensures data validity
+      });
+  
+      if (!asset) {
+        return res.status(404).json({ message: "Asset not found" });
+      }
+  
+      res.status(200).json(asset);
+    } catch (err) {
+      console.error("Error updating asset:", err);
+      res.status(500).json({ error: err.message });
+    }
+  };
+  
 
 export const deleteAsset = async (req, res) => {
   try {
