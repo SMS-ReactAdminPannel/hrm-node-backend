@@ -7,7 +7,7 @@ const HrSchema = new mongoose.Schema({
     last_name:{type:String,required:false},
     user_name:{type:String,required:false},
     password:{type:String,required:true},
-    phone_number:{type:Number,required:true},
+    phone_number:{type:Number,required:false},
     email:{type:String,required:true},
     role:{type:String,default:"hr"},
     is_active:{type:Boolean,required:true,default:true},
