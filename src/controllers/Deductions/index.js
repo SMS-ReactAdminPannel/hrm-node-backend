@@ -25,6 +25,7 @@ export const createDeductionType = async (req,res)=>{
 }
 
 
+
 export const getAllDeductionTypes = async (req, res) => {
     try {
         const deductions = await DeductionType.find({});
@@ -39,6 +40,7 @@ export const getAllDeductionTypes = async (req, res) => {
         res.status(500).json({ status: "failed", message: err?.message });
     }
 };
+
 
 
 
@@ -81,6 +83,7 @@ export const createEmployeeDeduction = async (req, res) => {
 };
 
 
+
 export const getAllEmployeeDeductionTypes = async (req, res) => {
     try {
         const employeeDeductions = await EmployeeDeduction.find({});
@@ -95,3 +98,4 @@ export const getAllEmployeeDeductionTypes = async (req, res) => {
         res.status(500).json({ status: "failed", message: err?.message });
     }
 };
+
