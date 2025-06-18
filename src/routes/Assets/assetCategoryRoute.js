@@ -1,20 +1,19 @@
 import express from "express";
 import {
-  createCategory,
+  
   getAllCategories,
   getCategoryById,
   updateCategory,
-  deleteCategory,
-  createCategory
+  deleteCategory
 } from "../../controllers/assetCategoryController.js";
+import { createAssetCategory } from "../../controllers/HR/AssetCategory/index.js";
 
 const router = express.Router();
 
-router.post("/", createCategory);
+router.post("/", createAssetCategory);
 router.get("/", getAllCategories);
 router.get("/:id", getCategoryById);
 router.put("/:id", updateCategory);
 router.delete("/:id", deleteCategory);
-
 
 export default router;

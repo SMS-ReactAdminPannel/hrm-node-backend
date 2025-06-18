@@ -8,7 +8,12 @@ const url = `mongodb+srv://${process.env.db_user}:${process.env.db_pass}@smsdb.b
 
 const ConnectDB = async () => {
   try {
-    await mongoose.connect(url);
+    const connectionOptions = {
+      // useNewUrlParser: true,
+      // useUnifiedTopology: true,
+    };
+
+    await mongoose.connect(url, connectionOptions);
     console.log("MongoDB Connected");
   } catch (err) {
     console.error("MongoDB Connection Error:", err);

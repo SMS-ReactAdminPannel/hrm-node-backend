@@ -2,8 +2,16 @@ import express from "express"
 import AdminRouter from "./Admin/index.js";
 import EmployeeRouter from "./Employee/index.js";
 import GuestRouter from "./Guest/index.js";
+import AnnouncementRouter from "./HR/Announcement/index.js";
+import DepartmentRouter from "./HR/Department/index.js";
+import PayrollRouter from "./HR/Payroll/index.js";
+import AssetCategoryRouter from "./HR/AssetCategory/index.js";
+import TimeSheetrouter from "./HR/TimeSheet/index.js";
+import GrievanceRouter from "./HR/Grievance/index.js";
+import CandidatesRouter from "./HR/Candidates/index.js";
 import HrRouter from "./HR/Index.js";
-import jobPostingRoutes from "./Recruitment/jobposting.js";
+import notificationRouter from "./Notification/Auth/index.js";
+
 
 const routes = express.Router();
 
@@ -11,6 +19,5 @@ routes.use("/admin", AdminRouter);
 routes.use("/hr", HrRouter);
 routes.use("/employee", EmployeeRouter);
 routes.use("/guest", GuestRouter);
-routes.use("/job-postings", jobPostingRoutes);
 
 export default routes;
