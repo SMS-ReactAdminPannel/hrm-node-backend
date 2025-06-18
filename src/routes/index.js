@@ -19,8 +19,8 @@ routes.use("/admin", AdminRouter);
 routes.use("/hr", HrRouter);
 routes.use("/employee", EmployeeRouter);
 routes.use("/guest", GuestRouter)
-// routes.use("/assetcategory",AssetCategoryRouter)
-// routes.use("/department",DepartmentRouter)
+routes.use("/assetcategory",AssetCategoryRouter)
+routes.use("/department",DepartmentRouter)
 // routes.use("/timesheet",TimeSheetrouter)
 // routes.use("/guest", GuestRouter);
 // routes.use("/announcement",AnnouncementRouter);
