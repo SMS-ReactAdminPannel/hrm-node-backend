@@ -9,7 +9,7 @@ import AssetCategoryRouter from "./HR/AssetCategory/index.js";
 import TimeSheetrouter from "./HR/TimeSheet/index.js";
 import GrievanceRouter from "./HR/Grievance/index.js";
 import CandidatesRouter from "./HR/Candidates/index.js";
-import HrRouter from "./HR/Index.js";
+import HrRouter from "./HR/index.js";
 import LeaveRouter from "./HR/LeaveManagement/index.js";
 
 const routes = express.Router();
