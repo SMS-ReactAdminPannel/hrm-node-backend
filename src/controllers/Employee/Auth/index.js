@@ -2,7 +2,8 @@ import { employeeUser } from "../../../models/Employee/index.js";
 import bcrypt from "bcryptjs";
 import { generateOtp } from "../../../utils/helpers/helpers.js";
 import { Otps } from "../../../models/index.js";
-import { Department } from "../../../models/Department/index.js";
+import { DepartmentModel } from "../../../models/HR/Department/index.js";
+
 
 // ✅ SIGNUP WITH DEPARTMENT
 export const signUp = async (req, res) => {
@@ -17,7 +18,7 @@ export const signUp = async (req, res) => {
             departmentName,
         } = req.body;
 
-        const department = await Department.findOne({ name: departmentName });
+        const department = await DepartmentModel.findOne({ name: departmentName });
         if (!department) {
             return res.status(400).json({
                 success: false,

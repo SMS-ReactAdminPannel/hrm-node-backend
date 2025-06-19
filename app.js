@@ -21,12 +21,11 @@ app.use(express.json());
 
 app.use("/api", routes)
 
- app.use("/api/assets", assetRoute);
- app.use("/asset-categories", assetCategoryRoute);
- app.use("/api/employee", EmployeeAuthRoutes);
- app.use("/api/departments", DepartmentRouter);
+//  app.use("/api/assets", assetRoute);
+//  app.use("/asset-categories", assetCategoryRoute);
+//  app.use("/api/employee", EmployeeAuthRoutes);
 
- app.use("/jobs", jobPostingsRoutes);
+//  app.use("/jobs", jobPostingsRoutes);
 
  ConnectDB().then(() => {
 app.listen(process.env.PORT, () => {
