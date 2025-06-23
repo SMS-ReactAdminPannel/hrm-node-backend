@@ -8,9 +8,9 @@ export const createNotification = async (req, res) => {
     const notification = new Notification(req.body);
     const savedNotification = await notification.save();
     
-    // Emit to recipient
-    const io = getIO();
-    io.to(savedNotification.recipient.toString()).emit('new-notification', savedNotification);
+    // Emit to recipient  
+      const io = getIO();
+      io.to(savedNotification.recipient.toString()).emit('new-notification', savedNotification);
 
     res.status(201).json(savedNotification);
   } catch (error) {
