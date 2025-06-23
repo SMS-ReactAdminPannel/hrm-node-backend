@@ -1,14 +1,8 @@
 import mongoose from "mongoose";
 
 const OtpSchema = new mongoose.Schema({
-    email : { 
-        type: String , 
-        required : true
-    },
-    otp : {
-        type : String , 
-        required :true
-    },
+    email : { type: String ,required : true},
+    otp : {type : String ,required :true},
     token : {type : String , required : true}, 
     validated: { type: Boolean, default: false },
     is_active : {type : Boolean ,default : true},
@@ -23,12 +17,11 @@ OtpSchema.index({ expiryDate: 1 }, { expireAfterSeconds: 0 });
 
 export const Otps = mongoose.model("Otps",OtpSchema)
 
-
 const TokenSchema = new mongoose.Schema({
     email:{type:String,required:true},
      token:{type:String,required:true},
      createdAt: { type: Date, expires: '1d', default: Date.now },
    
 })
-
 export const Tokens = mongoose.model("Tokens",TokenSchema)
+

@@ -5,7 +5,6 @@ AdminSchemavalidate,
 AdminLoginValidate,
 AdminForgotPasswordValidate,
 AdminResetPasswordValidate,
-
 }
 
 export default Validations;
