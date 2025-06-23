@@ -1,5 +1,6 @@
 import express from "express"
-import { EmployeeCreate, EmployeeDelete, EmployeeGetAll, EmployeeUpdateWithUUID, forgotPassword, getProfile, Login, logout, resendOtp, resetPassword, signUp, updateProfile, validateOTP } from "../../../controllers/Employee/Auth/index.js";
+import { EmployeeCreate, EmployeeDelete, EmployeeGetAll, EmployeeUpdateWithUUID, forgotPassword, getProfile, Login, 
+    logout, resendOtp, resetPassword, signUp, updateProfile, validateOTP } from "../../../controllers/Employee/Auth/index.js";
 
 const authEmployeeRoute = express.Router();
 

@@ -1,5 +1,6 @@
 import express from "express"
-import { AdminForgotPassword, AdmingetProfileByUUID, AdminLogin, AdminLogout, AdminResendOTP, AdminResetPassword, AdminSignup, AdminupdateProfile, AdminvalidateOTP } from "../../../controllers/Admin/Auth/index.js"
+import { AdminForgotPassword, AdmingetProfileByUUID, AdminLogin, AdminLogout, AdminResendOTP, AdminResetPassword,
+     AdminSignup, AdminupdateProfile, AdminvalidateOTP } from "../../../controllers/Admin/Auth/index.js"
 
 const adminAuthRouter= express.Router()
 
