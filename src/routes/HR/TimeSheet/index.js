@@ -5,7 +5,8 @@ import {
   approveTimesheet,
   getsubmitTimesheet,
   getemployeetimesheet,
-  // getTimeEntriesByDateRange,
+  getFilteredTimeEntries,
+  getDailyAttendance,
 } from '../../../controllers/HR/TimeSheet/index.js';
 
 const TimeSheetrouter = express.Router();
@@ -15,6 +16,8 @@ TimeSheetrouter.post('/clock-out', clockOut);
 TimeSheetrouter.get('/submit', getsubmitTimesheet);
 TimeSheetrouter.patch('/approve/:timesheetId', approveTimesheet);
 TimeSheetrouter.get('/:id',getemployeetimesheet)
-// TimeSheetrouter.get("/entries", getTimeEntriesByDateRange);
+TimeSheetrouter.post('/entries/filter', getFilteredTimeEntries);
+TimeSheetrouter.get('/attendance/daily', getDailyAttendance);
+
 
 export default TimeSheetrouter;
