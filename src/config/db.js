@@ -7,7 +7,7 @@ export const url = `mongodb+srv://${process.env.db_user}:${process.env.db_pass}@
 
 const conenctionOptions = {
   // useNewUrlParser: true,
-  //     useUnifiedTopology: true,
+  // useUnifiedTopology: true,
 };
 
 mongoose

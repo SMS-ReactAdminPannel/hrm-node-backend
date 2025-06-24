@@ -13,6 +13,7 @@ import ShiftRouter from "./Shift/index.js";
 import LeaveRouter from "./LeaveManagement/index.js";
 
 import DeductionRouter from "./Deduction/index.js";
+import TrainingMangament from "./Training/index.js";
 
 const HrRouter = express.Router();
 HrRouter.use("/assetcategory",AssetCategoryRouter)
@@ -29,4 +30,5 @@ HrRouter.use("/candidates",CandidatesRouter)
 HrRouter.use("/leave-type", LeaveTypeRouter)
 HrRouter.use("/shift",ShiftRouter)
 HrRouter.use("/deductions",DeductionRouter)
+HrRouter.use("/training",TrainingMangament)
 export default HrRouter;
