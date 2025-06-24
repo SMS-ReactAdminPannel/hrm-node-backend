@@ -11,7 +11,7 @@ import GrievanceRouter from "./HR/Grievance/index.js";
 import CandidatesRouter from "./HR/Candidates/index.js";
 import HrRouter from "./HR/Index.js";
 import notificationRouter from "./Notification/Auth/index.js";
-
+import LeaveRouter from "./HR/LeaveManagement/index.js";
 
 const routes = express.Router();
 

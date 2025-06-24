@@ -26,7 +26,7 @@ const TimesheetSchema = new mongoose.Schema({
   employee_id: { type: mongoose.Schema.Types.ObjectId, ref: 'employeeUser', required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
-  entries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TimeEntry' }],
+  entries: [{ type: mongoose.Schema.Types.ObjectId, ref: 'TimeEntrymodel  ' }],
   totalHours: { type: Number },
   status: {
     type: String,
