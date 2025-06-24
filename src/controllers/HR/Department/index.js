@@ -1,15 +1,34 @@
 import { DepartmentModel } from "../../../models/HR/Department/index.js";
 
 
+// ✅ Create Department
 export const DepartmentCreate = async (req, res) => {
     try {
-        const value = req.body;
+        const {
+            name,
+            description,
+            subDescription,
+            total_employee,
+            image
+        } = req.body;
+
+        // if (!id || !department_name) {
+        //     return res.status(400).send({
+        //         success: false,
+        //         message: "ID and Department Name are required",
+        //     });
+        // }
 
         const newDepartment = new DepartmentModel({
-            ...value,
-
+            name,
+            description,
+            subDescription,
+            total_employee,
+            image
         });
+
         await newDepartment.save();
+
         return res.status(201).send({
             success: true,
             message: "New Department Created Successfully",
@@ -24,91 +43,19 @@ export const DepartmentCreate = async (req, res) => {
     }
 };
 
+// ✅ Update Department
 export const DepartmentUpdateWithUUID = async (req, res) => {
     try {
         const { id } = req.params;
-        const value = req.body;
+        const updateData = req.body;
 
-        const updatedPart = await DepartmentModel.findOneAndUpdate(
+        const updatedDepartment = await DepartmentModel.findOneAndUpdate(
             { _id: id, is_deleted: false },
-            {
-                ...value,
-
-            },
+            updateData,
             { new: true }
         );
 
-        if (!updatedPart) {
-            return res.status(404).send({
-                success: false,
-                message: "Department not found or has been deleted",
-            });
-        }
-
-        return res.status(200).send({
-            success: true,
-            message: "Department updated successfully",
-            data: updatedPart,
-        });
-    } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: "Something went wrong",
-            error: error.message,
-        });
-    }
-};
-
-export const DepartmentGetOne = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const Department = await DepartmentModel.findOne({ _id: id, is_deleted: false });
-
-        if (!Department) {
-            return res.status(404).send({
-                success: false,
-                message: "Department not found",
-            });
-        }
-        return res.status(200).send({
-            success: true,
-            data: Department,
-        });
-    } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: "Something went wrong",
-            error: error.message,
-        });
-    }
-};
-export const DepartmentGetAll = async (req, res) => {
-    try {
-        const Department = await DepartmentModel.find({ is_deleted: false });
-
-        return res.status(200).send({
-            success: true,
-            data: Department,
-        });
-    } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: "Something went wrong",
-            error: error.message,
-        });
-    }
-};
-export const DepartmentDelete = async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        const deletedPart = await DepartmentModel.findOneAndDelete(
-            { _id: id, },
-            { is_deleted: true },
-            { new: true }
-        );
-
-        if (!deletedPart) {
+        if (!updatedDepartment) {
             return res.status(404).send({
                 success: false,
                 message: "Department not found or already deleted",
@@ -117,7 +64,87 @@ export const DepartmentDelete = async (req, res) => {
 
         return res.status(200).send({
             success: true,
-            message: "Department deleted successfully",
+            message: "Department updated successfully",
+            data: updatedDepartment,
+        });
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            message: "Something went wrong",
+            error: error.message,
+        });
+    }
+};
+
+// ✅ Get Single Department
+export const DepartmentGetOne = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const department = await DepartmentModel.findOne({
+            _id: id,
+            is_deleted: false
+        });
+
+        if (!department) {
+            return res.status(404).send({
+                success: false,
+                message: "Department not found",
+            });
+        }
+
+        return res.status(200).send({
+            success: true,
+            data: department,
+        });
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            message: "Something went wrong",
+            error: error.message,
+        });
+    }
+};
+
+// ✅ Get All Departments (excluding deleted)
+export const DepartmentGetAll = async (req, res) => {
+    try {
+        const departments = await DepartmentModel.find({ is_deleted: false });
+
+        return res.status(200).send({
+            success: true,
+            data: departments,
+        });
+    } catch (error) {
+        return res.status(500).send({
+            success: false,
+            message: "Something went wrong",
+            error: error.message,
+        });
+    }
+};
+
+// ✅ Soft Delete Department
+export const DepartmentDelete = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const deletedDepartment = await DepartmentModel.findOneAndUpdate(
+            { _id: id, is_deleted: false },
+            { is_deleted: true },
+            { new: true }
+        );
+
+        if (!deletedDepartment) {
+            return res.status(404).send({
+                success: false,
+                message: "Department not found or already deleted",
+            });
+        }
+
+        return res.status(200).send({
+            success: true,
+            message: "Department soft deleted successfully",
         });
     } catch (error) {
         return res.status(500).send({
