@@ -7,6 +7,7 @@ const employeeSchema = new mongoose.Schema({
     id:{
         type:Number,
     },
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
     uuid:{
         type:Number,
         default: uuid,

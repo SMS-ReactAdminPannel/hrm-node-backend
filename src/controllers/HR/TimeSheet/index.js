@@ -1,5 +1,6 @@
 import { log } from "console";
-import { TimeEntryModel, TimesheetModel } from "../../../models/HR/TimeSheet/index.js";
+import { TimeEntryModel, TimesheetModel} from "../../../models/HR/TimeSheet/index.js";
+import { employeeUser } from "../../../models/Employee/index.js";
 import { startOfDay, format } from "date-fns";
 
 // Clock In
@@ -142,46 +143,52 @@ export const getemployeetimesheet = async (req, res) => {
   }
 };
 
-  
+export const getFilteredTimeEntries = async (req, res) => {
+  try {
+    const { employee_id, startDate, endDate } = req.body;
 
-// export const getTimeEntriesByDateRange = async (req, res) => {
-//   try {
-//     const { employee_id, startDate, endDate } = req.query;
+    if (!startDate || !endDate) {
+      return res.status(400).json({ error: "Start and end dates are required" });
+    }
 
-//     // Check required params
-//     if (!employee_id || !startDate || !endDate) {
-//       return res.status(400).json({ error: 'employee_id, startDate, and endDate are required' });
-//     }
+    const filter = {
+      ...(employee_id && { employee_id }),
+      date: {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate)
+      }
+    };
 
-//     // Validate employee_id
-//     if (!mongoose.Types.ObjectId.isValid(employee_id)) {
-//       return res.status(400).json({ error: 'Invalid employee_id format' });
-//     }
+    const entries = await TimeEntryModel.find(filter);
 
-//     // Parse and validate dates
-//     const start = new Date(startDate);
-//     const end = new Date(endDate);
-//     if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-//       return res.status(400).json({ error: 'Invalid date format' });
-//     }
+    if (!entries.length) {
+      return res.status(404).json({ error: "No time entries found" });
+    }
 
-//     // Find time entries
-//     const entries = await TimeEntryModel.find({
-//       employee_id,
-//       date: { $gte: start, $lte: end }
-//     }).sort({ date: 1 });
+    res.status(200).json({ data: entries });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-//     console.log(entries, "entriessssssssssssssss kamal")
 
-//     if (entries.length === 0) {
-//       return res.status(404).json({ message: 'No time entries found for this period' });
-//     }
+export const getDailyAttendance = async (req, res) => {
+  try {
+    const { date } = req.query;
+    if (!date) {
+      return res.status(400).json({ error: "Date is required" });
+    }
 
-//     res.status(200).json({
-//       message: 'Time entries retrieved successfully',
-//       data: entries
-//     });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
+    const startDate = new Date(date);
+    const endDate = new Date(date);
+    endDate.setDate(endDate.getDate() + 1);
+
+    const entries = await TimeEntryModel.find({
+      date: { $gte: startDate, $lt: endDate }
+    }).populate('employee_id')
+
+    res.status(200).json({ date, Data: entries });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
