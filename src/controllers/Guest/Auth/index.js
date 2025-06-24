@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import { generateOtp } from "../../utils/helpers/helpers.js";
 import { Otps } from "../../models/index.js";
 
-export const signUp = async (req, res) => {
+export const GuestSignUp = async (req, res) => {
   try {
     const {
      first_name,
@@ -43,7 +43,7 @@ export const signUp = async (req, res) => {
 
 
 
-export const Login = async (req, res) => {
+export const GuestLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -68,7 +68,7 @@ export const Login = async (req, res) => {
   }
 }
 
-export const validateOTP = async (req,res)=>{
+export const GuestValidateOTP = async (req,res)=>{
   try{
     const {email,otp,token} = req.body;
 

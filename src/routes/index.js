@@ -9,7 +9,8 @@ import AssetCategoryRouter from "./HR/AssetCategory/index.js";
 import TimeSheetrouter from "./HR/TimeSheet/index.js";
 import GrievanceRouter from "./HR/Grievance/index.js";
 import CandidatesRouter from "./HR/Candidates/index.js";
-import HrRouter from "./HR/index.js";
+import HrRouter from "./HR/Index.js";
+import notificationRouter from "./Notification/Auth/index.js";
 import LeaveRouter from "./HR/LeaveManagement/index.js";
 
 const routes = express.Router();
@@ -20,13 +21,15 @@ routes.use("/employee", EmployeeRouter);
 routes.use("/guest", GuestRouter)
 routes.use("/assetcategory",AssetCategoryRouter)
 routes.use("/department",DepartmentRouter)
-routes.use("/timesheet",TimeSheetrouter)
-routes.use("/guest", GuestRouter);
-routes.use("/announcement",AnnouncementRouter);
-routes.use("/department",DepartmentRouter);
-routes.use("/payroll",PayrollRouter);
-routes.use("/leave",LeaveRouter);
-routes.use("/grievance",GrievanceRouter)
-routes.use("/candidates",CandidatesRouter)
+// routes.use("/timesheet",TimeSheetrouter)
+// routes.use("/guest", GuestRouter);
+// routes.use("/announcement",AnnouncementRouter);
+// routes.use("/department",DepartmentRouter);
+// routes.use("/payroll",PayrollRouter);
+// routes.use("/leave",LeaveRouter);
+// routes.use("/grievance",GrievanceRouter)
+// routes.use("/candidates",CandidatesRouter)
+// routes.use("/notification",notificationRouter);
+
 
 export default routes;

@@ -3,31 +3,46 @@ import {v4 as uuid, v4} from "uuid"
 
 const AssetCategorySchema = mongoose.Schema({
 
-    id:{
-        type:String
+    asset_name: {
+      type: String,
+      required: true,
     },
-    asset_name:{
-        type:String
+    status: {
+      type: String,
+      enum: ['Available', 'Not-Available'],
+      default: 'Available',
     },
-
-    description:{
-        type:String
+    trackingId: {
+      type: String,
+      required: true,
+      unique: true,
     },
-    asset_status:{
-        type:String,
+    batchNo: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+    },
+    category: {
+      type: String,
+    },
+    purchaseDate: {
+      type: Date,
+    },
+    expiryDate: {
+      type: Date,
+    },
+    cost: {
+      type: Number, // Store as float
     },
     uuid:{
         type:String,
         required:false,
         unique:true,
-        default:uuid
+        default:uuid,
     },
-    asset_id:{
-        type:String
-    },
-    asset_batch:{
-        type:String
-    },
+
     is_active:{
         type:Boolean,
         default:true,
@@ -38,4 +53,39 @@ const AssetCategorySchema = mongoose.Schema({
     },
 },{timestamps:true});
 
-export const AssetCategoryModel = mongoose.model("Assetmodel",AssetCategorySchema)
+export const AssetCategoryModel = mongoose.model("AssetCategorymodel",AssetCategorySchema)
+
+
+const AssetSchema = mongoose.Schema({
+
+    asset:[{ type: mongoose.Schema.Types.ObjectId, ref: 'AssetCategorymodel', required: true }] ,
+
+    category_name:
+    {
+        type: String,
+      required: true,
+    },
+
+     description: {
+      type: String,
+    },
+
+    uuid:{
+        type:String,
+        required:false,
+        unique:true,
+        default:uuid,
+    },
+
+    is_active:{
+        type:Boolean,
+        default:true,
+    },
+    is_deleted:{
+        type:Boolean,
+        default:false
+    },
+},{timestamps:true}
+)
+
+export const AssetModel = mongoose.model("Assetmodel",AssetSchema)
