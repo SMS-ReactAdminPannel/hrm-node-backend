@@ -6,4 +6,4 @@ const GrievanceRouter = express.Router();
 GrievanceRouter.get("/create",createGrievance)
 GrievanceRouter.get("/getall",getAllGrievances)
 GrievanceRouter.put("/:id/status", updateGrievanceStatus);
-export default GrievanceRouter
+export default GrievanceRouter    
