@@ -18,12 +18,12 @@ const CreatedProgram = new mongoose.Schema({
       _id: { type: mongoose.Schema.Types.ObjectId, ref: "employeeUser" },
       first_name: String,
       last_name: String,
-      department: String, //need to get department from employee to show
-    }
+      department: String, //need to get department from employee to show on training
+    },
   ],
 });
 
-export const CreatedProgramTraining = mongoose.model("CreatedProgramTraining",CreatedProgram
+export const CreatedProgramTraining = mongoose.model(
+  "CreatedProgramTraining",
+  CreatedProgram
 );
-
-
