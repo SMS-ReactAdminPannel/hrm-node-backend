@@ -1,24 +1,16 @@
+import { employeeUser } from "../../../models/Employee/index.js";
 import { CreatedProgramTraining } from "../../../models/HR/Training/index.js";
+
 
 // Create Training Program
 export const CreatedTProgram = async (req, res) => {
   try {
-    const { title, category, duration, instructor, startDate, enrolled = 0, completed = 0, rating = 0, status = "active" } = req.body;
+    const value = req.body;
 
     const createdptraining = new CreatedProgramTraining({
-      title,
-      category,
-      duration,
-      instructor,
-      startDate,
-      enrolled,
-      completed,
-      rating,
-      status,
+      ...value
     });
-
     await createdptraining.save();
-
     return res.status(201).send({
       success: true,
       message: "Created Training Program Successfully",
@@ -33,11 +25,11 @@ export const CreatedTProgram = async (req, res) => {
   }
 };
 
+
 // get all Training Programs
 export const showPrograms = async (req, res) => {
   try {
     const allPrograms = await CreatedProgramTraining.find();
-
     return res.status(200).send({
       success: true,
       message: "Fetched all training programs",
@@ -54,25 +46,46 @@ export const showPrograms = async (req, res) => {
 
 
 //empolyee adding
+
 export const addEmployeesToProgram = async (req, res) => {
   try {
     const { programId } = req.params;
     const { employIds } = req.body;
 
-    const updatedProgram = await CreatedProgramTraining.findByIdAndUpdate(
-      programId,
-      { $addToSet: { employId: { $each: employIds } } },
-      { new: true }
-    ).populate("employId");
+    if (!Array.isArray(employIds) || employIds.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "No employee IDs provided",
+      });
+    }
+    const employees = await employeeUser.find({ _id: { $in: employIds } });
+    const program = await CreatedProgramTraining.findById(programId);
+    if (!program) {
+      return res.status(404).json({ success: false, message: "Program not found" });
+    }
+    const existingIds = program.employId
+      .filter(e => e && e._id)
+      .map(e => e._id.toString());
+
+    const newEmployees = employees
+      .filter(emp => !existingIds.includes(emp._id.toString()))
+      .map(emp => ({
+        _id: emp._id,
+        first_name: emp.first_name,
+        last_name: emp.last_name,
+        department: emp.department
+      }));
+    program.employId.push(...newEmployees);
+    await program.save();
 
     res.status(200).json({
       success: true,
       message: "Employees added to program successfully",
-      data: updatedProgram,
+      data: program,
     });
-  } catch (error) {
-    console.error("Error in addEmployeesToProgram:", error); 
 
+  } catch (error) {
+    // console.error("Error adding employees:", error);
     res.status(500).json({
       success: false,
       message: "Error adding employees",
@@ -81,5 +94,31 @@ export const addEmployeesToProgram = async (req, res) => {
   }
 };
 
+//get a program details
+export const getProgramById = async (req, res) => {
+  try {
+    const { programId } = req.params;
 
+    const program = await CreatedProgramTraining.findById(programId);
 
+    if (!program) {
+      return res.status(404).json({
+        success: false,
+        message: "Training program not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: program,
+    });
+
+  } catch (error) {
+    // console.error("Error fetching program:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching program",
+      error: error.message || error,
+    });
+  }
+};

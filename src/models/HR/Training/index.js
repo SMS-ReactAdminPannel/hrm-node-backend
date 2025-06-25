@@ -11,8 +11,16 @@ const CreatedProgram = new mongoose.Schema({
   completed: { type: Number, default: 0 },
   rating: { type: Number, default: 0 },
   status: { type: String, enum: ["active", "completed"], default: "active" },
+
   //for getting employee to which training they are going into
-  employId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'employeeUser' }],
+  employId: [
+    {
+      _id: { type: mongoose.Schema.Types.ObjectId, ref: "employeeUser" },
+      first_name: String,
+      last_name: String,
+      department: String, //need to get department from employee to show
+    }
+  ],
 });
 
 export const CreatedProgramTraining = mongoose.model("CreatedProgramTraining",CreatedProgram

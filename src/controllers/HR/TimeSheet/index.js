@@ -127,9 +127,7 @@ export const approveTimesheet = async (req, res) => {
 export const getemployeetimesheet = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id,"timesheet")
     const timesheet = await TimeEntryModel.find({employee_id:id})
-console.log(timesheet,"tm")
     if (!timesheet) {
       return res.status(404).json({ error: "Timesheet not found" });
     }
