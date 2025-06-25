@@ -15,6 +15,7 @@ import DeductionRouter from "./Deduction/index.js";
 import VisitorRoute from "./VisitorManagement/index.js";
 
 
+import TrainingMangament from "./Training/index.js";
 
 const HrRouter = express.Router();
 
@@ -33,5 +34,7 @@ HrRouter.use("/shift",ShiftRouter)
 HrRouter.use("/deductions",DeductionRouter)
 HrRouter.use("/visitors",VisitorRoute)
 HrRouter.use("/deductions", DeductionRouter);
+HrRouter.use("/training",TrainingMangament)
+
 
 export default HrRouter;
