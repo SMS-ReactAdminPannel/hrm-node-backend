@@ -1,5 +1,5 @@
 import express from "express"
-import { createAsset, createAssetCategory, deleteAsset, deleteAssetCategory, getAllAssetCategory, getAssetById, getAssetCategoryById, updateAsset, updateAssetCategory } from "../../../controllers/HR/AssetCategory/index.js";
+import { createAsset, createAssetCategory, deleteAsset, deleteAssetCategory, getAllAssetCategory, getAllAssets, getAssetById, getAssetCategoryById, updateAsset, updateAssetCategory } from "../../../controllers/HR/AssetCategory/index.js";
 
 
 const AssetCategoryRouter = express.Router();
@@ -10,7 +10,7 @@ AssetCategoryRouter.put("/update/:id",updateAssetCategory)
 AssetCategoryRouter.delete("/delete/:id",deleteAssetCategory)
 
 AssetCategoryRouter.post("/assetcreate", createAsset);
-AssetCategoryRouter.get("/assetgetall", getAllAssetCategory);
+AssetCategoryRouter.get("/assetgetall", getAllAssets);
 AssetCategoryRouter.get("/assetget/:id", getAssetById);
 AssetCategoryRouter.put("/assetupdate/:id", updateAsset);
 AssetCategoryRouter.delete("/assetdelete/:id", deleteAsset);

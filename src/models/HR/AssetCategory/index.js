@@ -88,4 +88,4 @@ const AssetSchema = mongoose.Schema({
 },{timestamps:true}
 )
 
-export const AssetModel = mongoose.model("Assetmodel",AssetSchema)
+export const AssetModel = mongoose.model("Assetmodel", AssetSchema)
