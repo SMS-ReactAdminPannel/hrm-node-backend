@@ -29,3 +29,20 @@ export const trainingProgramSchema = Joi.object({
     )
     .default([]),
 });
+
+
+export const addEmployeesSchema = Joi.object({
+  employIds: Joi.array()
+    .items(
+      Joi.string()
+        .custom((value, helpers) => {
+          if (!mongoose.Types.ObjectId.isValid(value)) {
+            return helpers.error("any.invalid");
+          }
+          return value;
+        }, "ObjectId Validation")
+        .required()
+    )
+    .min(1)
+    .required()
+});

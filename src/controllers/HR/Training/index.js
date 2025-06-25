@@ -1,6 +1,6 @@
 import { employeeUser } from "../../../models/Employee/index.js";
 import { CreatedProgramTraining } from "../../../models/HR/Training/index.js";
-import { trainingProgramSchema } from "../../../validations/Training/Auth/index.js";
+import { trainingProgramSchema,addEmployeesSchema } from "../../../validations/Training/Auth/index.js";
 
 //Create Training Program Management
 export const CreatedTProgram = async (req, res) => {
@@ -15,7 +15,6 @@ export const CreatedTProgram = async (req, res) => {
     }
     const createdptraining = new CreatedProgramTraining(value);
     await createdptraining.save();
-
     return res.status(201).send({
       success: true,
       message: "Created Training Program Successfully",
@@ -52,25 +51,26 @@ export const showPrograms = async (req, res) => {
 export const addEmployeesToProgram = async (req, res) => {
   try {
     const { programId } = req.params;
-    const { employIds } = trainingProgramSchema.validate(req.body);
-
-    if (!Array.isArray(employIds) || employIds.length === 0) {
+    const { value, error } = addEmployeesSchema.validate(req.body);
+    if (error) {
       return res.status(400).json({
         success: false,
-        message: "No employee IDs provided",
+        message: "Validation failed",
+        error: error.details[0].message,
       });
     }
+    const { employIds } = value;
     const employees = await employeeUser.find({ _id: { $in: employIds } });
     const program = await CreatedProgramTraining.findById(programId);
     if (!program) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Program not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Program not found",
+      });
     }
     const existingIds = program.employId
       .filter((e) => e && e._id)
       .map((e) => e._id.toString());
-
     const newEmployees = employees
       .filter((emp) => !existingIds.includes(emp._id.toString()))
       .map((emp) => ({
@@ -81,13 +81,13 @@ export const addEmployeesToProgram = async (req, res) => {
       }));
     program.employId.push(...newEmployees);
     await program.save();
-
     res.status(200).json({
       success: true,
       message: "Employees added to program successfully",
       data: program,
     });
   } catch (error) {
+    console.error("Error adding employees:", error);
     res.status(500).json({
       success: false,
       message: "Error adding employees",
