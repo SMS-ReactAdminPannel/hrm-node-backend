@@ -33,7 +33,7 @@ export const CreatedTProgram = async (req, res) => {
   }
 };
 
-// GET All Training Programs
+// get all Training Programs
 export const showPrograms = async (req, res) => {
   try {
     const allPrograms = await CreatedProgramTraining.find();
@@ -51,3 +51,35 @@ export const showPrograms = async (req, res) => {
     });
   }
 };
+
+
+//empolyee adding
+export const addEmployeesToProgram = async (req, res) => {
+  try {
+    const { programId } = req.params;
+    const { employIds } = req.body;
+
+    const updatedProgram = await CreatedProgramTraining.findByIdAndUpdate(
+      programId,
+      { $addToSet: { employId: { $each: employIds } } },
+      { new: true }
+    ).populate("employId");
+
+    res.status(200).json({
+      success: true,
+      message: "Employees added to program successfully",
+      data: updatedProgram,
+    });
+  } catch (error) {
+    console.error("Error in addEmployeesToProgram:", error); 
+
+    res.status(500).json({
+      success: false,
+      message: "Error adding employees",
+      error: error.message || error,
+    });
+  }
+};
+
+
+
