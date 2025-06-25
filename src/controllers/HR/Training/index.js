@@ -1,16 +1,43 @@
 import { employeeUser } from "../../../models/Employee/index.js";
 import { CreatedProgramTraining } from "../../../models/HR/Training/index.js";
-
+import { trainingProgramSchema } from "../../../validations/Training/Auth/index.js";
 
 // Create Training Program
+// export const CreatedTProgram = async (req, res) => {
+//   try {
+//     const value = req.body;
+
+//     const createdptraining = new CreatedProgramTraining({
+//       ...value
+//     });
+//     await createdptraining.save();
+//     return res.status(201).send({
+//       success: true,
+//       message: "Created Training Program Successfully",
+//       data: createdptraining,
+//     });
+//   } catch (error) {
+//     return res.status(500).send({
+//       success: false,
+//       message: "Something went wrong",
+//       error: error.message,
+//     });
+//   }
+// };import { trainingProgramSchema } from "../../../validations/trainingProgramValidation.js";
+
 export const CreatedTProgram = async (req, res) => {
   try {
-    const value = req.body;
-
-    const createdptraining = new CreatedProgramTraining({
-      ...value
-    });
+    const { error, value } = trainingProgramSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        message: "Validation failed",
+        error: error.details[0].message,
+      });
+    }
+    const createdptraining = new CreatedProgramTraining(value);
     await createdptraining.save();
+
     return res.status(201).send({
       success: true,
       message: "Created Training Program Successfully",
@@ -44,13 +71,11 @@ export const showPrograms = async (req, res) => {
   }
 };
 
-
 //empolyee adding
-
 export const addEmployeesToProgram = async (req, res) => {
   try {
     const { programId } = req.params;
-    const { employIds } = req.body;
+    const { employIds } = trainingProgramSchema.validate(req.body);
 
     if (!Array.isArray(employIds) || employIds.length === 0) {
       return res.status(400).json({
@@ -85,7 +110,6 @@ export const addEmployeesToProgram = async (req, res) => {
     });
 
   } catch (error) {
-    // console.error("Error adding employees:", error);
     res.status(500).json({
       success: false,
       message: "Error adding employees",
@@ -114,7 +138,6 @@ export const getProgramById = async (req, res) => {
     });
 
   } catch (error) {
-    // console.error("Error fetching program:", error);
     res.status(500).json({
       success: false,
       message: "Error fetching program",
