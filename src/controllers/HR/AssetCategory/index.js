@@ -1,169 +1,257 @@
-import { AssetCategoryModel, AssetModel } from "../../../models/HR/AssetCategory/index.js"
 
-// CREATE Asset
-export const createAssetCategory = async (req, res) => {
+import mongoose from "mongoose";
+import { AssetCategoryModel, AssetModel } from "../../../models/HR/AssetCategory/index.js";
+
+
+
+// Create Asset
+export const createAsset = async (req, res) => {
+      const { asset_name, description,batchNo,trackingId,status,category,purchaseDate,expiryDate,cost,assetcategoryId } = req.body;
+      const categoryExists = await AssetCategoryModel.findOne({ uuid: { $in: assetcategoryId }});
   try {
-    const assetData = req.body
-
-    const newAsset = new AssetCategoryModel(assetData)
-    await newAsset.save()
-
-    res.status(201).json({ success: true, message: "Asset created successfully", data: newAsset })
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to create asset", error: error.message })
-  }
-}
-
-// GET All Assets (excluding soft-deleted)
-export const getAllAssetCategory = async (req, res) => {
-  try {
-    const assets = await AssetCategoryModel.find({ is_deleted: false })
-    res.status(200).json({ success: true, data: assets })
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to fetch assets", error: error.message })
-  }
-}
-
-// GET Asset by ID
-export const getAssetCategoryById = async (req, res) => {
-  try {
-    const asset = await AssetCategoryModel.findById(req.params.id)
-
-    if (!asset || asset.is_deleted) {
-      return res.status(404).json({ success: false, message: "Asset not found" })
+    if(!categoryExists){
+      res.status(404).json({success:false, data: "Asset category does not exits!" })
     }
+    else if (categoryExists){
+      const newAsset = new AssetModel({ asset_name, description,batchNo,trackingId,status,category,purchaseDate,expiryDate,cost });
+      const savedAsset = await newAsset.save();
 
-    res.status(200).json({ success: true, data: asset })
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to fetch asset", error: error.message })
+
+      categoryExists.asset.push(savedAsset._id);
+    await categoryExists.save();
+
+
+      res.status(201).json({ success: true, data: savedAsset });
+    }    
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-}
+};
 
-// UPDATE Asset by ID
-export const updateAssetCategory = async (req, res) => {
+// Get All Assets
+export const getAllAsset = async (req, res) => {
   try {
-    const updatedAsset = await AssetCategoryModel.findByIdAndUpdate(
+    const assets = await AssetModel.find();
+    res.status(200).json({ success: true, data: assets });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+// Get Single Asset by ID
+export const getAssetById = async (req, res) => {
+  try {
+    const asset = await AssetModel.findById(req.params.id);
+    if (!asset) {
+      return res.status(404).json({ success: false, message: "Asset not found" });
+    }
+    res.status(200).json({ success: true, data: asset });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+// Update Asset
+export const updateAsset = async (req, res) => {
+  try {
+    const updated = await AssetModel.findByIdAndUpdate(
       req.params.id,
-      { ...req.body },
+      req.body,
       { new: true }
-    )
-
-    if (!updatedAsset) {
-      return res.status(404).json({ success: false, message: "Asset not found" })
+    );
+    if (!updated) {
+      return res.status(404).json({ success: false, message: "Asset not found" });
     }
-
-    res.status(200).json({ success: true, message: "Asset updated", data: updatedAsset })
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to update asset", error: error.message })
+    res.status(200).json({ success: true, data: updated });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
   }
-}
+};
 
-// SOFT DELETE Asset by ID
-export const deleteAssetCategory = async (req, res) => {
+// Delete Asset (soft delete by default)
+export const deleteAsset = async (req, res) => {
   try {
-    const asset = await AssetCategoryModel.findByIdAndUpdate(
+    const deleted = await AssetModel.findByIdAndUpdate(
       req.params.id,
       { is_deleted: true },
       { new: true }
-    )
-
-    if (!asset) {
-      return res.status(404).json({ success: false, message: "Asset not found" })
+    );
+    if (!deleted) {
+      return res.status(404).json({ success: false, message: "Asset not found" });
     }
-
-    res.status(200).json({ success: true, message: "Asset soft-deleted", data: asset })
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to delete asset", error: error.message })
-  }
-}
-
-
-// CREATE Asset Group
-export const createAsset = async (req, res) => {
-  try {
-    const { asset, category_name, description } = req.body;
-
-    // Optional: validate referenced asset IDs exist
-    const existingAssets = await AssetCategoryModel.find({ _id: { $in: asset }, is_deleted: false });
-    if (existingAssets.length !== asset.length) {
-      return res.status(400).json({ success: false, message: "One or more AssetCategory IDs are invalid" });
-    }
-
-    const newAssetGroup = new AssetModel({
-      asset,
-      category_name,
-      description,
-    });
-
-    await newAssetGroup.save();
-
-    res.status(201).json({ success: true, message: "Asset group created", data: newAssetGroup });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to create asset group", error: error.message });
+    res.status(200).json({ success: true, message: "Asset marked as deleted", data: deleted });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 };
 
-// GET All Asset Groups
-export const getAllAssets = async (req, res) => {
+
+
+// Create Asset Category
+export const createAssetCategory = async (req, res) => {
   try {
-    const assets = await AssetModel.find({ is_deleted: false }).populate("asset");
-    res.status(200).json({ success: true, data: assets });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to fetch assets", error: error.message });
+    const { category_name, description } = req.body;
+
+    // Validate asset IDs
+    // const validAssets = await AssetModel.find({ _id: { $in: asset } });
+    // if (validAssets.length !== asset.length) {
+    //   return res.status(400).json({ success: false, message: "One or more Asset IDs are invalid" });
+    // }
+
+    const category = await AssetCategoryModel.find({ category_name: { $in: category_name }});
+    if(category?.length){
+      res.status(400).json({success:false,response:'category already exists'})
+    }
+    else{
+      const newCategory = new AssetCategoryModel({ category_name, description });
+      const savedCategory = await newCategory.save();
+      res.status(201).json({ success: true, data: savedCategory });
+    }
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
   }
 };
 
-// GET Asset Group by ID
-export const getAssetById = async (req, res) => {
+// Get All Asset Categories
+export const getAllAssetCategory = async (req, res) => {
   try {
-    const assetGroup = await AssetModel.findById(req.params.id).populate("asset");
+    const categories = await AssetCategoryModel.find().populate("asset");
+    res.status(200).json({ success: true, data: categories });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
 
-    if (!assetGroup || assetGroup.is_deleted) {
-      return res.status(404).json({ success: false, message: "Asset group not found" });
+// Get Single Asset Category by ID
+export const getAssetCategoryById = async (req, res) => {
+  try {
+    const category = await AssetCategoryModel.findById(req.params.id).populate("asset");
+    if (!category) {
+      return res.status(404).json({ success: false, message: "Asset category not found" });
+    }
+    res.status(200).json({ success: true, data: category });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+// Update Asset Category
+export const updateAssetCategory = async (req, res) => {
+  try {
+    const { asset } = req.body;
+
+    if (asset) {
+      const validAssets = await AssetModel.find({ _id: { $in: asset } });
+      if (validAssets.length !== asset.length) {
+        return res.status(400).json({ success: false, message: "One or more Asset IDs are invalid" });
+      }
     }
 
-    res.status(200).json({ success: true, data: assetGroup });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to fetch asset group", error: error.message });
-  }
-};
-
-// UPDATE Asset Group
-export const updateAsset = async (req, res) => {
-  try {
-    const { asset, category_name, description } = req.body;
-
-    const updatedAssetGroup = await AssetModel.findByIdAndUpdate(
+    const updated = await AssetCategoryModel.findByIdAndUpdate(
       req.params.id,
-      { asset, category_name, description },
+      req.body,
       { new: true }
     ).populate("asset");
 
-    if (!updatedAssetGroup) {
-      return res.status(404).json({ success: false, message: "Asset group not found" });
+    if (!updated) {
+      return res.status(404).json({ success: false, message: "Asset category not found" });
     }
 
-    res.status(200).json({ success: true, message: "Asset group updated", data: updatedAssetGroup });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to update asset group", error: error.message });
+    res.status(200).json({ success: true, data: updated });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
   }
 };
 
-// SOFT DELETE Asset Group
-export const deleteAsset = async (req, res) => {
+// Delete Asset Category (soft delete by default)
+export const deleteAssetCategory = async (req, res) => {
   try {
-    const deletedAsset = await AssetModel.findByIdAndUpdate(
+    const deleted = await AssetCategoryModel.findByIdAndUpdate(
       req.params.id,
       { is_deleted: true },
       { new: true }
     );
 
-    if (!deletedAsset) {
-      return res.status(404).json({ success: false, message: "Asset group not found" });
+    if (!deleted) {
+      return res.status(404).json({ success: false, message: "Asset category not found" });
     }
 
-    res.status(200).json({ success: true, message: "Asset group deleted", data: deletedAsset });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Failed to delete asset group", error: error.message });
+    res.status(200).json({ success: true, message: "Asset category marked as deleted", data: deleted });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+// export const deleteAsset = async (req, res) => {
+//   try {
+//     const assetId = req.params.id;
+
+//     // Soft delete the asset
+//     const deleted = await AssetModel.findByIdAndUpdate(
+//       assetId,
+//       { is_deleted: true },
+//       { new: true }
+//     );
+
+//     if (!deleted) {
+//       return res.status(404).json({ success: false, message: "Asset not found" });
+//     }
+
+//     // Remove from category asset list
+//     await AssetCategoryModel.updateMany(
+//       { asset: assetId },
+//       { $pull: { asset: assetId } }
+//     );
+
+//     res.status(200).json({
+//       success: true,
+//       message: "Asset marked as deleted and unlinked from categories",
+//       data: deleted,
+//     });
+//   } catch (err) {
+//     res.status(500).json({ success: false, message: err.message });
+//   }
+// };
+
+
+
+
+
+//     // Update asset fields
+//     const updatedAsset = await AssetModel.findByIdAndUpdate(
+//       assetId,
+//       { asset_name, description, batchNo, trackingId, status, category, purchaseDate, expiryDate, cost },
+//       { new: true }
+//     );
+
+//     // Handle category reassignment
+//     if (assetcategoryId) {
+//       // Remove asset from any previous category
+//       await AssetCategoryModel.updateMany(
+//         { asset: assetId },
+//         { $pull: { asset: assetId } }
+//       );
+
+//       // Add asset to the new category
+//       const newCategory = await AssetCategoryModel.findOne({ uuid: assetcategoryId });
+//       if (newCategory) {
+//         newCategory.asset.push(assetId);
+//         await newCategory.save();
+//       }
+//     }
+
+//     res.status(200).json({ success: true, data: updatedAsset });
+//   } catch (err) {
+//     res.status(400).json({ success: false, message: err.message });
+//   }
+// };

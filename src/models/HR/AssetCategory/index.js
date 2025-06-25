@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 import {v4 as uuid, v4} from "uuid"
 
-const AssetCategorySchema = mongoose.Schema({
+const AssetSchema = mongoose.Schema({
 
     asset_name: {
       type: String,
@@ -53,12 +53,12 @@ const AssetCategorySchema = mongoose.Schema({
     },
 },{timestamps:true});
 
-export const AssetCategoryModel = mongoose.model("AssetCategorymodel",AssetCategorySchema)
+export const AssetModel = mongoose.model("Assetproperty",AssetSchema)
 
 
-const AssetSchema = mongoose.Schema({
+const AssetCategorySchema = mongoose.Schema({
 
-    asset:[{ type: mongoose.Schema.Types.ObjectId, ref: 'AssetCategorymodel', required: true }] ,
+    asset:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Assetproperty', required: true }] ,
 
     category_name:
     {
@@ -88,4 +88,4 @@ const AssetSchema = mongoose.Schema({
 },{timestamps:true}
 )
 
-export const AssetModel = mongoose.model("Assetmodel",AssetSchema)
+export const AssetCategoryModel = mongoose.model("Assetcategoryproperty",AssetCategorySchema)

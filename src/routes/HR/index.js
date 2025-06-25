@@ -1,5 +1,4 @@
 import express from "express"
-import AssetCategoryRouter from "./AssetCategory/index.js";
 import HrAuthRouter from "./Auth/index.js";
 import Appraisalrouter from "./Appraisal/index.js";
 import DepartmentRouter from "./Department/index.js";
@@ -11,10 +10,11 @@ import CandidatesRouter from "./Candidates/index.js";
 import LeaveTypeRouter from "./LeaveTypeManagement/index.js";
 import ShiftRouter from "./Shift/index.js";
 import LeaveRouter from "./LeaveManagement/index.js";
+import AssetPropertyRouter from "./AssetCategory/index.js";
 
 
 const HrRouter = express.Router();
-HrRouter.use("/assetcategory",AssetCategoryRouter)
+HrRouter.use("/assetproperty",AssetPropertyRouter)
 HrRouter.use("/department",DepartmentRouter)
 HrRouter.use("/timesheet",TimeSheetrouter)
 HrRouter.use('/auth',HrAuthRouter),

@@ -1,17 +1,20 @@
 import express from "express"
-import { createAsset, createAssetCategory, deleteAsset, deleteAssetCategory, getAllAssetCategory, getAssetById, getAssetCategoryById, updateAsset, updateAssetCategory } from "../../../controllers/HR/AssetCategory/index.js";
+import { createAsset, createAssetCategory, deleteAsset, deleteAssetCategory, getAllAsset, getAllAssetCategory, getAssetById, getAssetCategoryById, updateAsset, updateAssetCategory } from "../../../controllers/HR/AssetCategory/index.js";
 
 
-const AssetCategoryRouter = express.Router();
-AssetCategoryRouter.post("/create", createAssetCategory)
-AssetCategoryRouter.get("/getall",getAllAssetCategory)
-AssetCategoryRouter.get("/get/:id",getAssetCategoryById)
-AssetCategoryRouter.put("/update/:id",updateAssetCategory)
-AssetCategoryRouter.delete("/delete/:id",deleteAssetCategory)
 
-AssetCategoryRouter.post("/assetcreate", createAsset);
-AssetCategoryRouter.get("/assetgetall", getAllAssetCategory);
-AssetCategoryRouter.get("/assetget/:id", getAssetById);
-AssetCategoryRouter.put("/assetupdate/:id", updateAsset);
-AssetCategoryRouter.delete("/assetdelete/:id", deleteAsset);
-export default AssetCategoryRouter
+const AssetPropertyRouter = express.Router();
+
+AssetPropertyRouter.post("/create-assets", createAsset);
+AssetPropertyRouter.get("/getall-assets", getAllAsset);
+AssetPropertyRouter.get("/get-assets/:id", getAssetById);
+AssetPropertyRouter.put("/update-assets/:id", updateAsset);
+AssetPropertyRouter.delete("/delete-assets/:id", deleteAsset);
+
+AssetPropertyRouter.post("/asset-categories", createAssetCategory);
+AssetPropertyRouter.get("/getallasset-categories", getAllAssetCategory);
+AssetPropertyRouter.get("/getasset-categories/:id", getAssetCategoryById);
+AssetPropertyRouter.put("/updateasset-categories/:id", updateAssetCategory);
+AssetPropertyRouter.delete("/deleteasset-categories/:id", deleteAssetCategory);
+
+export default AssetPropertyRouter
