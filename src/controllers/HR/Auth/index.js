@@ -64,6 +64,7 @@ export const HrSignin = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Signin successfully",
+      data: user
     });
 
   } catch (err) {
