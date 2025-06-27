@@ -12,11 +12,12 @@ import { createServer } from 'http';
 import { initSocket } from './src/services/socketService.js';
 import { generateToken } from './src/utils/helpers/helpers.js';
 
+
 dotenv.config();
 const app = express();
 app.use(cors());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:5173"
+  origin: ["http://localhost:5173","https://hrm-node-backend.onrender.com"], credentials: true
 }));
 app.use(express.json());
 
