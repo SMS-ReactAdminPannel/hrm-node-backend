@@ -7,6 +7,7 @@ const employeeSchema = new mongoose.Schema({
     id:{
         type:Number,
     },
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
     uuid:{
         type:Number,
         default: uuid,
@@ -77,7 +78,12 @@ const employeeSchema = new mongoose.Schema({
     first_time_login:{
         type:Boolean,
         default:false
-    }
+    },
+    department: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Department",
+        required: true
+      },
 },{timestamps:true,});
 
 

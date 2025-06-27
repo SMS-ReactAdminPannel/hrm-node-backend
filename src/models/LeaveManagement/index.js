@@ -19,8 +19,11 @@ const HolidaySchema = new Schema({
     },
     holiday_type: {
         type: String,
-        enum: ['national', 'regional', 'optional', 'religious'],
-        default:"national",
+        // <option value="Paid">Paid</option>
+        // <option value="Unpaid">Unpaid</option>
+        // <option value="Partial">Partial</option>
+        enum: ['Paid', 'Unpaid', 'Partial'],
+        default:"paid",
         required: true,
         lowercase:true
     },

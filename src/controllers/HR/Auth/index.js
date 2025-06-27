@@ -10,22 +10,22 @@ export const HrSignup = async (req, res) => {
   try {
     const {
       email,
-      user_name,
+      // user_name,
       password,
-      first_name,
-      last_name,
-      phone_number,
-    } = Validations.HrSchemavalidate(req.body);
+      // first_name,
+      // last_name,
+      // phone_number,
+    } = Validations.Hrschemavalidate(req.body);
 
     const hashed = await bcrypt.hash(password, 10);
 
     const user = new userHRSchema({
       email,
-      user_name,
-      first_name,
-      last_name,
+      // user_name,
+      // first_name,
+      // last_name,
       password: hashed,
-      phone_number,
+      // phone_number,
     });
 
     await user.save();
