@@ -2,7 +2,7 @@ import express from "express";
 import {
   createAppraisal,
   getAllAppraisals,
-  getAppraisalByEmployeeCode,
+   getAppraisalById,
   updateAppraisal,
   deleteAppraisal
 } from "../../../controllers/HR/Appraisal/index.js";
@@ -11,8 +11,8 @@ const Appraisalrouter = express.Router();
 
 Appraisalrouter.post("/", createAppraisal);
 Appraisalrouter.get("/", getAllAppraisals);
-Appraisalrouter.get("/code/:code",getAppraisalByEmployeeCode);
-Appraisalrouter.put("/code/:code", updateAppraisal);
-Appraisalrouter.delete("/code/:code", deleteAppraisal);
+Appraisalrouter.get("/:id", getAppraisalById);
+Appraisalrouter.put("/:id", updateAppraisal);
+Appraisalrouter.delete("/:id", deleteAppraisal);
 
 export default Appraisalrouter;
