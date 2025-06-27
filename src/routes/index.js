@@ -2,7 +2,7 @@ import express from "express"
 import AdminRouter from "./Admin/index.js";
 import EmployeeRouter from "./Employee/index.js";
 import GuestRouter from "./Guest/index.js";
-import HRRouter from "./HR/Index.js";
+import HRRouter from "./HR/index.js";
 
 const routes = express.Router();
 
