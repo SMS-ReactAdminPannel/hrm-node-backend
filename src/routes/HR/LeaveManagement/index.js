@@ -3,9 +3,9 @@ import { deleteHoliday, getHolidays, NewHoliday, updateHoliday } from "../../../
 
 const LeaveRouter = express.Router();
 
-LeaveRouter.post("/", NewHoliday);
-LeaveRouter.get("/getall", getHolidays);
-LeaveRouter.put("/update/:uuid", updateHoliday);
-LeaveRouter.delete("/delete/:uuid", deleteHoliday);
+LeaveRouter.post("/createHoliday", NewHoliday);
+LeaveRouter.get("/getAll", getHolidays);
+LeaveRouter.put("/updateHoliday/:uuid", updateHoliday);
+LeaveRouter.delete("/deleteHoliday/:uuid", deleteHoliday);
 
 export default LeaveRouter;

@@ -8,9 +8,9 @@ export const createNotification = async (req, res) => {
     const notification = new Notification(req.body);
     const savedNotification = await notification.save();
     
-    // Emit to recipient
-    const io = getIO();
-    io.to(savedNotification.recipient.toString()).emit('new-notification', savedNotification);
+    // Emit to recipient  
+      const io = getIO();
+      io.to(savedNotification.recipient.toString()).emit('new-notification', savedNotification);
 
     res.status(201).json(savedNotification);
   } catch (error) {
@@ -52,3 +52,12 @@ export const markAsRead = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+export const getAllNotifications = async (req,res) => {
+  try{
+    const notification  = await Notification.find({})
+     return res.status(200).json(notification);
+  }catch (error){
+    res.status(500).json({ error: error.message });
+  }
+}

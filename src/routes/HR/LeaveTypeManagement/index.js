@@ -3,10 +3,10 @@ import { createLeaveType, deleteLeave, getall, getUniqueLeave, updateLeaveType }
 
 const LeaveTypeRouter = express.Router();
 
-LeaveTypeRouter.post("/", createLeaveType);
-LeaveTypeRouter.get("/getall", getall);
-LeaveTypeRouter.get("/get/:uuid", getUniqueLeave);
-LeaveTypeRouter.put("/update/:uuid", updateLeaveType);
-LeaveTypeRouter.delete("/delete/:uuid", deleteLeave);
+LeaveTypeRouter.post("/createLeaveType", createLeaveType);
+LeaveTypeRouter.get("/getAllLeave", getall);
+LeaveTypeRouter.get("/getUniqueLeave/:uuid", getUniqueLeave);
+LeaveTypeRouter.put("/updateLeave/:uuid", updateLeaveType);
+LeaveTypeRouter.delete("/deleteLeave/:uuid", deleteLeave);
 
 export default LeaveTypeRouter;

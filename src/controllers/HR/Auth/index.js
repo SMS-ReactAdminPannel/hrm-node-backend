@@ -61,9 +61,13 @@ export const HrSignin = async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) throw new Error("Password is incorrect");
 
+    const { otp, token } = await generateOtp();
+    await Otps.create({ otp, email, token });
+
     res.status(200).json({
       success: true,
       message: "Signin successfully",
+      data: {email,otp,token}
     });
 
   } catch (err) {

@@ -29,7 +29,7 @@ HrRouter.use("/payroll", PayrollRouter);
 HrRouter.use("/leave", LeaveRouter);
 HrRouter.use("/grievance",GrievanceRouter)
 HrRouter.use("/candidates",CandidatesRouter)
-HrRouter.use("/leave-type", LeaveTypeRouter)
+HrRouter.use("/leaveType", LeaveTypeRouter)
 HrRouter.use("/shift",ShiftRouter)
 HrRouter.use("/deductions",DeductionRouter)
 HrRouter.use("/visitors",VisitorRoute)

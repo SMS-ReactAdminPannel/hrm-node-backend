@@ -29,7 +29,8 @@ routes.use("/department",DepartmentRouter)
 // routes.use("/leave",LeaveRouter);
 // routes.use("/grievance",GrievanceRouter)
 // routes.use("/candidates",CandidatesRouter)
-// routes.use("/notification",notificationRouter);
+routes.use("/notification",notificationRouter);
+
 
 
 export default routes;
