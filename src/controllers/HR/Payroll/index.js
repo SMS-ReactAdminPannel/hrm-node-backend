@@ -22,6 +22,16 @@ export const PayrollCreate = async (req, res)=>{
         });
     }
 };
+export const PayrollGetAll = async (req, res) => {
+  try {
+    const payrolls = await PayrollModel.find(); // 
+    res.status(200).json(payrolls);
+  } catch (error) {
+    console.error("Error fetching all payrolls:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 export const PayrollGetOne = async (req, res) =>{
     try{
          const { id } = req.params;

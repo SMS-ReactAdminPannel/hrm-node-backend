@@ -7,10 +7,12 @@ import assetRoute from './src/routes/Assets/assetRoutes.js';
 import assetCategoryRoute from './src/routes/Assets/assetCategoryRoute.js';
 import EmployeeAuthRoutes from './src/routes/Employee/Auth/index.js'
 import DepartmentRouter from './src/routes/HR/Department/index.js';
-import jobPostingsRoutes from './src/routes/Recruitment/jobposting.js';
+import jobPostingsRoutes from './src/routes/Recruitment/index.js'
 import { createServer } from 'http';
 import { initSocket } from './src/services/socketService.js';
 import { generateToken } from './src/utils/helpers/helpers.js';
+import PayrollRouter from './src/routes/HR/Payroll/index.js';
+
 
 dotenv.config();
 const app = express();
@@ -22,12 +24,15 @@ app.use(express.json());
 
 
 app.use("/api", routes)
+app.use("/api/hr/jobposting", jobPostingsRoutes);
+app.use("/api/hr/payroll", PayrollRouter)
 
 //  app.use("/api/assets", assetRoute);
 //  app.use("/asset-categories", assetCategoryRoute);
 //  app.use("/api/employee", EmployeeAuthRoutes);
 
 //  app.use("/jobs", jobPostingsRoutes);
+
 
  ConnectDB().then(() => {
 app.listen(process.env.PORT, () => {
