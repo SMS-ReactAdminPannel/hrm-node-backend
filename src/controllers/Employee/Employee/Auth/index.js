@@ -1,9 +1,8 @@
-import { employeeUser } from "../../../models/Employee/index.js";
+import { employeeUser } from "../../../../models/Employee/Employee/index.js";
 import bcrypt from "bcryptjs";
-import { generateOtp } from "../../../utils/helpers/helpers.js";
-import { Otps } from "../../../models/index.js";
-import { DepartmentModel } from "../../../models/HR/Department/index.js";
-
+import { generateOtp } from "../../../../utils/helpers/helpers.js";
+import { Otps } from "../../../../models/index.js";
+import { DepartmentModel } from "../../../../models/HR/Department/index.js";
 
 // ✅ SIGNUP WITH DEPARTMENT
 export const signUp = async (req, res) => {

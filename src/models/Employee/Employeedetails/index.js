@@ -33,12 +33,7 @@ const PassportInfoSchema = new mongoose.Schema({
 
 const EmployeeDetailSchema = new mongoose.Schema({
   uuid: { type: String, default: uuidv4, unique: true },
-  employee_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'employeeUser',
-    required: true
-  },
-
+  
   personal: {
     name: { type: String },
     position: { type: String },
@@ -51,6 +46,10 @@ const EmployeeDetailSchema = new mongoose.Schema({
     address: { type: String },
     gender: { type: String },
     profileImage: { type: String },
+  },
+  department: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "departmentmodels", 
   },
 
   emergency: {

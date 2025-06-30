@@ -5,7 +5,7 @@ import ConnectDB from "./src/config/db.js"
 import routes from './src/routes/index.js';
 import assetRoute from './src/routes/Assets/assetRoutes.js';
 import assetCategoryRoute from './src/routes/Assets/assetCategoryRoute.js';
-import EmployeeAuthRoutes from './src/routes/Employee/Auth/index.js'
+import EmployeeAuthRoutes from './src/routes/Employee/index.js'
 import DepartmentRouter from './src/routes/HR/Department/index.js';
 import jobPostingsRoutes from './src/routes/Recruitment/jobposting.js';
 import { createServer } from 'http';

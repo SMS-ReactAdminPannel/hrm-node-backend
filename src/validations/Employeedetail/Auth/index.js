@@ -1,7 +1,6 @@
 import Joi from "joi"
 
 export const EmployeeDetailValidationSchema = Joi.object({
-  employee_id: Joi.string().required(),
 
   personal: Joi.object({
     
