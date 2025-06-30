@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import ConnectDB from "./src/config/db.js"
-import routes from './src/routes/index.js';
+import routes from './src/routes/index.js'
 import assetRoute from './src/routes/Assets/assetRoutes.js';
 import assetCategoryRoute from './src/routes/Assets/assetCategoryRoute.js';
 import EmployeeAuthRoutes from './src/routes/Employee/Auth/index.js'
