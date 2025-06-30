@@ -1,4 +1,4 @@
-import { employeeUser } from "../../../models/Employee/index.js";
+import { employeeUser } from "../../../models/Employee/Employee/index.js";
 import { CreatedProgramTraining } from "../../../models/HR/Training/index.js";
 import { trainingProgramSchema,addEmployeesSchema } from "../../../validations/Training/Auth/index.js";
 

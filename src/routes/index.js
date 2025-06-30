@@ -4,12 +4,15 @@ import EmployeeRouter from "./Employee/index.js";
 import GuestRouter from "./Guest/index.js";
 import HRRouter from "./HR/index.js";
 
+
 const routes = express.Router();
 
 routes.use("/admin", AdminRouter);
 routes.use("/hr", HRRouter);
-routes.use("/employee", EmployeeRouter);
-routes.use("/guest", GuestRouter)
+routes.use("/employee",EmployeeRouter );
+routes.use("/guest", GuestRouter);
+
+
 
 
 
