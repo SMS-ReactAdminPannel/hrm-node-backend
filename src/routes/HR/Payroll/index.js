@@ -4,6 +4,7 @@ import { PayrollCreate, PayrollDelete, PayrollGetOne, PayrollUpdateWithUUID, Pay
 const PayrollRouter = express.Router();
 PayrollRouter.post("/create", PayrollCreate)
 PayrollRouter.get("/get/:id",PayrollGetOne)
+PayrollRouter.get("/get",PayrollGetAll)
 PayrollRouter.put("/update/:id",PayrollUpdateWithUUID)
 PayrollRouter.delete("/delete/:id",PayrollDelete)
 PayrollRouter.get("/get-all", PayrollGetAll);

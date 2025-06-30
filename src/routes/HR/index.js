@@ -15,7 +15,9 @@ import DeductionRouter from "./Deduction/index.js";
 import VisitorRoute from "./VisitorManagement/index.js";
 
 
+
 import TrainingMangament from "./Training/index.js";
+import JobPostingRouter from "../Recruitment/index.js";
 
 const HRRouter = express.Router();
 
@@ -35,6 +37,6 @@ HRRouter.use("/deductions",DeductionRouter)
 HRRouter.use("/visitors",VisitorRoute)
 HRRouter.use("/deductions", DeductionRouter);
 HRRouter.use("/training",TrainingMangament)
-
+HRRouter.use("/jobpostings",JobPostingRouter)
 
 export default HRRouter;
