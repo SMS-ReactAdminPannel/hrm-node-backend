@@ -1,6 +1,6 @@
 import { log } from "console";
 import { TimeEntryModel, TimesheetModel} from "../../../models/HR/TimeSheet/index.js";
-import { employeeUser } from "../../../models/Employee/index.js";
+import { employeeUser } from "../../../models/Employee/Employee/index.js";
 import { startOfDay, format } from "date-fns";
 
 // Clock In

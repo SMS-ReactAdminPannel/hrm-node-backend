@@ -13,7 +13,7 @@ import {
   signUp,
   updateProfile,
   validateOTP,
-} from "../../../controllers/Employee/Auth/index.js";
+} from "../../../../controllers/Employee/Employee/Auth/index.js";
 
 const authEmployeeRoute = express.Router();
 

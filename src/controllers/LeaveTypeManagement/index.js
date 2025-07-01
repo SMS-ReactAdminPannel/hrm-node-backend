@@ -31,7 +31,7 @@ export const createLeaveType = async (req, res) => {
 
 export const getall = async (req, res) => {
     try {
-        const AllLeaveTypes = await LeaveType.find({});
+        const AllLeaveTypes = await LeaveType.find();
 
         res.status(200).json({
             success: true,

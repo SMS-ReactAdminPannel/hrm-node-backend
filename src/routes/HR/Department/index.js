@@ -16,4 +16,8 @@ DepartmentRouter.get("/get/:id", DepartmentGetOne);
 DepartmentRouter.get("/getall", DepartmentGetAll);
 DepartmentRouter.delete("/delete/:id", DepartmentDelete);
 
+
+// console.log("✅ DepartmentRouter is mounted");
+
+
 export default DepartmentRouter;

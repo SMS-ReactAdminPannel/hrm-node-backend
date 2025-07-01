@@ -5,11 +5,11 @@ let io;
 export const initSocket = (server) => {
   io = new Server(server, {
     cors: {
-      origin: process.env.FRONTEND_URL || "http://localhost:5173",
-      methods: ["GET", "POST"]
+      origin: 'http://localhost:5173',
+      methods: ["GET", "POST", "UPDATE"]
     }
   });
-
+  
   io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`);
 

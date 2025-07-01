@@ -106,23 +106,25 @@ export const DepartmentGetOne = async (req, res) => {
     }
 };
 
-// ✅ Get All Departments (excluding deleted)
 export const DepartmentGetAll = async (req, res) => {
+    // console.log("💡 GET /api/hr/departments/getall called"); // Debug log
+  
     try {
-        const departments = await DepartmentModel.find({ is_deleted: false });
-
-        return res.status(200).send({
-            success: true,
-            data: departments,
-        });
+      const departments = await DepartmentModel.find({ is_deleted: false });
+  
+      return res.status(200).send({
+        success: true,
+        data: departments,
+      });
     } catch (error) {
-        return res.status(500).send({
-            success: false,
-            message: "Something went wrong",
-            error: error.message,
-        });
+      return res.status(500).send({
+        success: false,
+        message: "Something went wrong",
+        error: error.message,
+      });
     }
-};
+  };
+  
 
 // ✅ Soft Delete Department
 export const DepartmentDelete = async (req, res) => {

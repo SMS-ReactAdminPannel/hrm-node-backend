@@ -2,10 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import ConnectDB from "./src/config/db.js"
-import routes from './src/routes/index.js';
+import routes from './src/routes/index.js'
 import assetRoute from './src/routes/Assets/assetRoutes.js';
 import assetCategoryRoute from './src/routes/Assets/assetCategoryRoute.js';
-import EmployeeAuthRoutes from './src/routes/Employee/Auth/index.js'
+import EmployeeAuthRoutes from './src/routes/Employee/index.js'
 import DepartmentRouter from './src/routes/HR/Department/index.js';
 import jobPostingsRoutes from './src/routes/Recruitment/index.js'
 import { createServer } from 'http';
@@ -15,15 +15,16 @@ import PayrollRouter from './src/routes/HR/Payroll/index.js';
 import TrainingMangamentRouter from './src/routes/HR/Training/index.js';
 
 
+
 dotenv.config();
 const app = express();
 app.use(cors());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || "http://localhost:5173"
+  origin: ["http://localhost:5173","https://hrm-node-backend.onrender.com"], credentials: true
 }));
 app.use(express.json());
 
-
+ 
 app.use("/api", routes)
 
 //  app.use("/api/assets", assetRoute);
