@@ -5,8 +5,8 @@ import mongoose from "mongoose";
 const TimeEntrySchema = new mongoose.Schema({
   employee_id: { type: mongoose.Schema.Types.ObjectId, ref: 'employeeUser', required: true },
   date: { type: Date, required: true },
-  clockIn: { type: Date },
-  clockOut: { type: Date },
+  clockIn: { type: Date, default: null},
+  clockOut: { type: Date, default: null },
   breakStart: { type: Date },
   breakEnd: { type: Date },
   totalHours: { type: Number },

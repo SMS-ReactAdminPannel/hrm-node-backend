@@ -37,4 +37,5 @@ HrRouter.use("/deductions", DeductionRouter);
 HrRouter.use("/training",TrainingMangament)
 
 
+
 export default HrRouter;

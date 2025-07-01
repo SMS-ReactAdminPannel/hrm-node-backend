@@ -3,7 +3,7 @@ import JobPosting from "../../models/Recruitment/job-postings/job-posting.js";
 
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/createJob", async (req, res) => {
   try {
     const job = new JobPosting(req.body);
     await job.save();
@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
 });
 
 
-router.get("/", async (req, res) => {
+router.get("/getAllJobs", async (req, res) => {
   try {
     const jobs = await JobPosting.find().sort({ createdAt: -1 });
     res.status(200).json(jobs);
@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
 });
 
 
-router.get("/:id", async (req, res) => {
+router.get("/getJobById/:id", async (req, res) => {
   try {
     const job = await JobPosting.findById(req.params.id);
     if (!job) {
@@ -40,7 +40,7 @@ router.get("/:id", async (req, res) => {
 });
 
 
-router.put("/:id", async (req, res) => {
+router.put("/Update/:id", async (req, res) => {
   try {
     const updatedJob = await JobPosting.findByIdAndUpdate(
       req.params.id,
@@ -54,7 +54,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/deleteJob/:id", async (req, res) => {
   try {
     const job = await JobPosting.findByIdAndUpdate(
       req.params.id,

@@ -121,7 +121,7 @@ export const forgotPassword = async (req, res) => {
     // Validate input
     const { value, error } = Validations.HRForgotPasswordValidate.validate(req.body);
     if (error) return res.status(400).json({ status: "Failed", message: error.details[0].message });
-
+    
     const { email } = value;
 
     // Check if user exists
@@ -148,7 +148,7 @@ export const forgotPassword = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Forgot Password Error:", error);
+    console.error("Forgot Password Failed Error :", error);
     return res.status(500).json({ status: "Failed", message: "Internal server error", error: error.message });
   }
 };
