@@ -12,6 +12,7 @@ import { createServer } from 'http';
 import { initSocket } from './src/services/socketService.js';
 import { generateToken } from './src/utils/helpers/helpers.js';
 import PayrollRouter from './src/routes/HR/Payroll/index.js';
+import TrainingMangamentRouter from './src/routes/HR/Training/index.js';
 
 
 dotenv.config();
@@ -24,8 +25,6 @@ app.use(express.json());
 
 
 app.use("/api", routes)
-app.use("/api/hr/jobposting", jobPostingsRoutes);
-app.use("/api/hr/payroll", PayrollRouter)
 
 //  app.use("/api/assets", assetRoute);
 //  app.use("/asset-categories", assetCategoryRoute);

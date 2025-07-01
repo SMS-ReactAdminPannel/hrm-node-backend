@@ -6,11 +6,11 @@ import {
   showPrograms,
 } from "../../../controllers/HR/Training/index.js";
 
-const TrainingMangament = express.Router();
+const TrainingMangamentRouter = express.Router();
 
-TrainingMangament.post("/createtraining", CreatedTProgram);
-TrainingMangament.post("/addemplyoee/:programId", addEmployeesToProgram);
-TrainingMangament.get("/showprogram", showPrograms);
-TrainingMangament.get("/program/:programId", getProgramById);
+TrainingMangamentRouter.post("/createtraining", CreatedTProgram);
+TrainingMangamentRouter.post("/addemplyoee/:programId", addEmployeesToProgram);
+TrainingMangamentRouter.get("/getall", showPrograms);
+TrainingMangamentRouter.get("/program/:programId", getProgramById);
 
-export default TrainingMangament;
+export default TrainingMangamentRouter;

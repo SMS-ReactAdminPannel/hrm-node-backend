@@ -23,7 +23,4 @@ const CreatedProgram = new mongoose.Schema({
   ],
 });
 
-export const CreatedProgramTraining = mongoose.model(
-  "CreatedProgramTraining",
-  CreatedProgram
-);
+export const CreatedProgramTraining = mongoose.model("CreatedProgramTraining",CreatedProgram);
