@@ -25,15 +25,6 @@ app.use(express.json());
 
  
 app.use("/api", routes)
-app.use("/api/hr/jobposting", jobPostingsRoutes);
-app.use("/api/hr/payroll", PayrollRouter)
-
-//  app.use("/api/assets", assetRoute);
-//  app.use("/asset-categories", assetCategoryRoute);
-//  app.use("/api/employee", EmployeeAuthRoutes);
-
-//  app.use("/jobs", jobPostingsRoutes);
-
 
  ConnectDB().then(() => {
 app.listen(process.env.PORT, () => {

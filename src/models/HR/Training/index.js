@@ -21,6 +21,14 @@ const CreatedProgram = new mongoose.Schema({
       department: String, //need to get department from employee to show on training
     },
   ],
+  is_deleted: {
+     type: Boolean,
+     default: false
+  },
+  is_active: {
+     type: Boolean,
+     default: true
+  }
 });
 
 export const CreatedProgramTraining = mongoose.model(

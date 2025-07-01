@@ -32,12 +32,11 @@ export const CreatedTProgram = async (req, res) => {
 // get all Training Programs
 export const showPrograms = async (req, res) => {
   try {
-    const allPrograms = await CreatedProgramTraining.find();
-    return res.status(200).send({
-      success: true,
-      message: "Fetched all training programs",
-      data: allPrograms,
-    });
+    const programs = await CreatedProgramTraining.find()
+    if(!programs) throw new error ("No programs")
+    res.status(200).json({
+      data: programs
+    })
   } catch (error) {
     return res.status(500).send({
       success: false,
