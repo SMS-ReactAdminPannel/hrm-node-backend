@@ -8,18 +8,22 @@ const employeeSchema = new mongoose.Schema(
     id: {
       type: Number,
     },
-    user_id: { 
-        type: mongoose.Schema.Types.ObjectId,
-         ref: "users" 
-        },
+    // user_id: { 
+    //     type: mongoose.Schema.Types.ObjectId,
+    //      ref: "users" 
+    // },
     details_id: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "EmployeeDetail",
     },
 
     uuid: {
-      type: Number,
+      type: String,
       default: uuid,
+    },
+    employeeUser_id:{
+      type:String,
+      required:true
     },
     first_name: {
       type: String,
@@ -90,7 +94,7 @@ const employeeSchema = new mongoose.Schema(
     },
     department: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Department",
+      ref: "departmentmodels",
       required: true,
     },
   },

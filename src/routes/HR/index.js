@@ -16,6 +16,7 @@ import VisitorRoute from "./VisitorManagement/index.js";
 
 
 import TrainingMangament from "./Training/index.js";
+import ChatRoute from "./Chat/index.js";
 
 const HRRouter = express.Router();
 
@@ -36,5 +37,6 @@ HRRouter.use("/visitors",VisitorRoute)
 HRRouter.use("/deductions", DeductionRouter);
 HRRouter.use("/training",TrainingMangament)
 
+HRRouter.use("/chat",ChatRoute)
 
 export default HRRouter;
