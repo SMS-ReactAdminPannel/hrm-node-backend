@@ -15,27 +15,28 @@ import DeductionRouter from "./Deduction/index.js";
 import VisitorRoute from "./VisitorManagement/index.js";
 
 
+
 import TrainingMangament from "./Training/index.js";
+import JobPostingRouter from "../Recruitment/index.js";
 
-const HrRouter = express.Router();
+const HRRouter = express.Router();
 
-HrRouter.use("/assetcategory", AssetCategoryRouter);
-HrRouter.use("/auth", HrAuthRouter);
-HrRouter.use("/appraisal", Appraisalrouter);
-HrRouter.use("/departments", departmentRouter);
-HrRouter.use("/timesheet", TimeSheetrouter);
-HrRouter.use("/announcement", AnnouncementRouter);
-HrRouter.use("/payroll", PayrollRouter);
-HrRouter.use("/leave", LeaveRouter);
-HrRouter.use("/grievance",GrievanceRouter)
-HrRouter.use("/candidates",CandidatesRouter)
-HrRouter.use("/leaveType", LeaveTypeRouter)
-HrRouter.use("/shift",ShiftRouter)
-HrRouter.use("/deductions",DeductionRouter)
-HrRouter.use("/visitors",VisitorRoute)
-HrRouter.use("/deductions", DeductionRouter);
-HrRouter.use("/training",TrainingMangament)
+HRRouter.use("/assetcategory", AssetCategoryRouter);
+HRRouter.use("/auth", HrAuthRouter);
+HRRouter.use("/appraisal", Appraisalrouter);
+HRRouter.use("/departments", departmentRouter);
+HRRouter.use("/timesheet", TimeSheetrouter);
+HRRouter.use("/announcement", AnnouncementRouter);
+HRRouter.use("/payroll", PayrollRouter);
+HRRouter.use("/leave", LeaveRouter);
+HRRouter.use("/grievance",GrievanceRouter)
+HRRouter.use("/candidates",CandidatesRouter)
+HRRouter.use("/leaveType", LeaveTypeRouter)
+HRRouter.use("/shift",ShiftRouter)
+HRRouter.use("/deductions",DeductionRouter)
+HRRouter.use("/visitors",VisitorRoute)
+HRRouter.use("/deductions", DeductionRouter);
+HRRouter.use("/training",TrainingMangament)
+HRRouter.use("/jobpostings",JobPostingRouter)
 
-
-
-export default HrRouter;
+export default HRRouter;
